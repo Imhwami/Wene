@@ -7,10 +7,11 @@ import Product from './Pages/Product';
 import Cart from './Pages/Cart';
 import LoginSignup from './Pages/LoginSignup';
 import Footer from './Components/Footer/Footer.jsx';
-import men_banner from './Components/Assets/banner_1.png'
-import women_banner from './Components/Assets/banner_2.png'
-import kid_banner from './Components/Assets/banner_3.png'
+import wig_banner from './Components/Assets/banner_1.png'
+import eyelash_banner from './Components/Assets/banner_2.png'
+import nails_banner from './Components/Assets/banner_3.png'
 import eyebrow_banner from './Components/Assets/banner_4.png'
+import Successfull from './Components/Successfull/Successfull.jsx';
 
 function App() {
   return (
@@ -19,14 +20,16 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path='/' element={<Shop/>}/>
-        <Route path='/wig' element={<ShopCategory banner={men_banner} category="men"/>}/>
-        <Route path='/womens' element={<ShopCategory banner={women_banner} category="women"/>}/>
-        <Route path='/kids' element={<ShopCategory banner={kid_banner} category="kid"/>}/>
+        <Route path='/wig' element={<ShopCategory banner={wig_banner} category="wig"/>}/>
+        <Route path='/eyelash' element={<ShopCategory banner={eyelash_banner} category="eyelash"/>}/>
+        <Route path='/nails' element={<ShopCategory banner={nails_banner} category="nails"/>}/>
+        <Route path='/eyebrow' element={<ShopCategory banner={eyebrow_banner} category="eyebrow"/>}/>
         <Route path="/product" element={<Product/>}>
         <Route path=':productId' element={<Product/>}/>
         </Route>
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/login' element={<LoginSignup/>}/>
+        <Route path='/successfull' element={<Successfull/>}/>
       </Routes>
       <Footer/>
       </BrowserRouter>

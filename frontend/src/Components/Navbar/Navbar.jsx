@@ -25,9 +25,9 @@ const Navbar = () => {
             <ul ref={menuRef} className="nav-menu">
                 <li onClick={() => { setMenu("home") }}><Link style={{ textDecoration: 'none' }} to='/'>Home</Link>{menu === "home" ? <hr /> : <></>}</li>
                 <li onClick={() => { setMenu("wig") }}><Link style={{ textDecoration: 'none' }} to='/wig'>Wig</Link>{menu === "wig" ? <hr /> : <></>}</li>
-                <li onClick={() => { setMenu("womens") }}><Link style={{ textDecoration: 'none' }} to='womens'>Eyelash</Link>{menu === "womens" ? <hr /> : <></>}</li>
-                <li onClick={() => { setMenu("kids") }}><Link style={{ textDecoration: 'none' }} to='/kids'>Eyebrow</Link>{menu === "kids" ? <hr /> : <></>}</li>
-                <li onClick={() => { setMenu("kids") }}><Link style={{ textDecoration: 'none' }} to='/kids'>Nails</Link>{menu === "kids" ? <hr /> : <></>}</li>
+                <li onClick={() => { setMenu("eyelash") }}><Link style={{ textDecoration: 'none' }} to='eyelash'>Eyelash</Link>{menu === "eyelash" ? <hr /> : <></>}</li>
+                <li onClick={() => { setMenu("nails") }}><Link style={{ textDecoration: 'none' }} to='/nails'>Nails</Link>{menu === "nails" ? <hr /> : <></>}</li>
+                <li onClick={() => { setMenu("eyebrow") }}><Link style={{ textDecoration: 'none' }} to='/eyebrow'>Eyebrow</Link>{menu === "eyebrow" ? <hr /> : <></>}</li>
             </ul>
             <div className="nav-login-cart">
                 {localStorage.getItem('auth-token') ? <button onClick={() => { localStorage.removeItem('auth-token'); window.location.replace('/') }}>Logout</button>

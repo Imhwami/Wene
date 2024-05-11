@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import './AddProduct.css'
 import upload_area from "../../assets/upload_area.svg";
 
@@ -70,9 +70,10 @@ const AddProduct = () => {
             <div className="addproduct-itemfield">
                 <p>Product Category</p>
                 <select value={productDetails.category} onChange={changeHandler} name="category" className='add-product-selector'>
-                    <option value="women">Women</option>
                     <option value="wig">Wig</option>
-                    <option value="kid">Kid</option>
+                    <option value="eyelash">Eyelash</option>
+                    <option value="nails">Nail</option>
+                    <option value="eyebrow">Eyebrow</option>
                 </select>
             </div>
             <div className="addproduct-itemfield">
