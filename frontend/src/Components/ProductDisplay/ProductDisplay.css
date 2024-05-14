@@ -74,12 +74,18 @@
     font-size: 16px;
     font-weight: 600;
     color: white;
-    background: #ff4141;
+    background: #0CC0DF;
     margin-bottom: 40px;
     border: none;
     outline: none;
     cursor: pointer;
+    border-radius: 75px;
 }
+.productdisplay-right button:hover {
+    background-color: white; 
+    color: black;
+    border:1px solid #0CC0DF ;
+  }
 .productdisplay-right-category{
     margin-top: 10px;
     font-weight: 200;

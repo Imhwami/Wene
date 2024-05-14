@@ -3,8 +3,11 @@ import './CartItems.css'
 import { ShopContext } from '../../Context/ShopContext'
 import remove_icon from '../Assets/cart_cross_icon.png'
 import { Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CartItems = () => {
+    const notify = () => toast("Wow so easy!");
     const { getTotalCartAmount, all_product, cartItems, removeFromCart } = useContext(ShopContext)
     return (
         <div className='cartitems'>

@@ -56,12 +56,18 @@
     height: 58px;
     outline: none;
     border: none;
-    background:#ff5a5a;
+    background:#0CC0DF;
     color: #fff;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+    border-radius: 75px;
 }
+.cartitems-total button:hover {
+    background-color: white; 
+    color: black;
+    border:1px solid #0CC0DF ;
+  }
 .cartitems-promocode{
     flex: 1;
     font-size: 16px;
