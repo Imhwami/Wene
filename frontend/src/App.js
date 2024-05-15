@@ -12,6 +12,7 @@ import eyelash_banner from './Components/Assets/banner_2.png'
 import nails_banner from './Components/Assets/banner_3.png'
 import eyebrow_banner from './Components/Assets/banner_4.png'
 import Successfull from './Components/Successfull/Successfull.jsx';
+import Address from './Components/Address/Address.jsx';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/login' element={<LoginSignup/>}/>
         <Route path='/successfull' element={<Successfull/>}/>
+        <Route path='/address' element={Address}/>
       </Routes>
       <Footer/>
       </BrowserRouter>

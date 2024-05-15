@@ -1,10 +1,13 @@
 import React, { useContext } from 'react'
-import './CartItems.css'
+import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { ShopContext } from '../../Context/ShopContext'
 import remove_icon from '../Assets/cart_cross_icon.png'
-import { Link } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import './CartItems.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+
 
 const CartItems = () => {
     const notify = () => toast("Wow so easy!");
@@ -55,15 +58,28 @@ const CartItems = () => {
                             <h3>Rp{getTotalCartAmount()}</h3>
                         </div>
                     </div>
-                    <Link to={'/successfull'} style={{textDecoration:"none"}}>
-                    <button>PROCEED TO CHECKOUT</button>
+                    <Link to={'/successfull'} style={{ textDecoration: "none" }}>
+                        <button>PROCEED TO CHECKOUT</button>
                     </Link>
                 </div>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
                 <div className="cartitems-promocode">
-                    <p>If you have a promo code, Enter it here</p>
-                    <div className="cartsitems-promobox">
-                        <input type="text" placeholder='promo code'/>
-                        <button>Submit</button>
+                    <p>Please pay to BCA 0198829019 A/N PERSON NAME</p>
+                    
+                    <br /> <div class="container">
+                    <p>Address details: Jalan Jalan</p>
+                    {/* <p>Jalan</p> */}
+                   
+
+                    <div class="tooltip">
+                        <span class="tooltiptext">Edit The Address Details</span>
+                        <Link to={'/address'} style={{ textDecoration: "none" }}>
+                        <button class="edit-button">
+                            <i class="fa fa-pencil"></i> 
+                        </button>    </Link>     </div>           <br />
+                    <hr />
+                   
                     </div>
                 </div>
             </div>

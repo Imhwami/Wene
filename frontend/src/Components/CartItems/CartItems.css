@@ -76,29 +76,61 @@
 .cartitems-promocode p{
     color: #454545;
 }
-.cartsitems-promobox{
-    width: 504px;
-    margin-top: 15px;
-    padding-left: 20px;
-    height: 58px;
-    background: #eaeaea;
-}
-.cartsitems-promobox input{
-    border: none;
-    outline: none;
-    background: transparent;
-    font-size: 16px;
-    width: 330px;
-    height: 50px;
-}
-.cartsitems-promobox button{
-    width: 170px;
-    height: 58px;
-    font-size: 16px;
-    background: black;
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  .container {
+    display: flex;
+    align-items: center; /* This will vertically center align the items */
+  }
+  
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 220px;
+    background-color: #0CC0DF;
     color: white;
+    text-align: center;
+    border-radius: 75px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px; /* Use half of the width to center the tooltip */
+  }
+  
+  /* Show the tooltip text on hover */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  .edit-button{
+    margin-left: 10px;
+    width: 40px;
+    height: 35px;
+    outline: none;
+    border: 1px solid #7a7a7a;
+    background:white;
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
-}
+    border-radius: 15px;
+  }
+
+  .edit-button:hover{
+    background-color: white; 
+    color: black;
+    border:1px solid #0CC0DF ;
+  }
+  
+
 @media (max-width:1280px) {
     .cartitems{
         margin: 60px 50px;

@@ -42,13 +42,10 @@ const ProductDisplay = (props) => {
                     necklace and short sleeves, worn as an undershirt or outer garment
                 </div>
                 <div className="productdisplay-right-size">
-                    <h1>Select Size</h1>
+                    <h1>Include Service</h1>
                     <div className="productdisplay-right-sizes">
-                        <div>S</div>
-                        <div>M</div>
-                        <div>L</div>
-                        <div>XL</div>
-                        <div>XXL</div>
+                        <div>Yes</div>
+                        <div>No</div>
                     </div>
                 </div>
                 <button onClick={() => { addToCart(product.id) }}>

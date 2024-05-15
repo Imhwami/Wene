@@ -64,9 +64,12 @@
 .productdisplay-right-sizes div{
     padding: 18px 24px;
     background: #fbfbfb;
-    border: 1px solid #ebebeb;
-    border-radius: 3px;
+    border: 1px solid #7a7a7a;
+    border-radius: 75px;
     cursor: pointer;
+}
+.productdisplay-right-sizes div:hover{
+    color: #0CC0DF;
 }
 .productdisplay-right button{
     padding: 20px 40px;
