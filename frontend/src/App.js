@@ -31,7 +31,7 @@ function App() {
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/login' element={<LoginSignup/>}/>
         <Route path='/successfull' element={<Successfull/>}/>
-        <Route path='/address' element={Address}/>
+        <Route path='/address' element={<Address/>}/>
       </Routes>
       <Footer/>
       </BrowserRouter>

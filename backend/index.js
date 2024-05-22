@@ -35,6 +35,9 @@ const Users = mongoose.model('Users', {
     cartData: {
         type: Object,
     },
+    addressData:{
+        type: Object,
+    },
     date: {
         type: Date,
         default: Date.now,
