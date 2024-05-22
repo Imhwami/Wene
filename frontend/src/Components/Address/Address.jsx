@@ -5,6 +5,67 @@ import citiesData from '../Assets/indonesia-cities.json'; // Import your city da
 
 
 const Address = () => {
+
+  const [addressDetails, setaddressDetails] = useState({
+    address_details: "",
+    address_note: "",
+    city: "Jakarta",
+    postal_code: "",
+    phone_number: ""
+  })
+
+  const changeHandler = (e) => {
+    setaddressDetails({ ...addressDetails, [e.target.name]: e.target.value })
+  }
+
+  const Add_address = async () => {
+    let responseData;
+    let address = addressDetails;
+
+    let formData = new FormData();
+    formData.append('address');
+
+    await fetch('http://localhost:4000/upload', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+      },
+      body: formData,
+    }).then((resp) => resp.json()).then((data) => { responseData = data })
+
+    if (responseData.success) {
+      address.image = responseData.image_url;
+      console.log(address);
+      await fetch('http://localhost:4000/addaddress', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(address),
+      }).then((resp) => resp.json()).then((data) => {
+        data.success ? alert("address Added") : alert("Failed")
+      })
+    }
+  }
+
+  const [inputPhoneNumberValue, setPhoneNumberValue] = useState('');
+  const regexPhoneNumberPattern = /^\d{10,13}$/;
+
+  const handlePhoneNumberChange = (e) => {
+    const newValue = e.target.value;
+    setPhoneNumberValue(newValue);
+
+    if (regexPhoneNumberPattern.test(newValue)) {
+      setIsValid(true);
+      // Valid input (10-13 digit numerical value)
+    } else {
+      setIsValid(false);
+      // Invalid input
+    }
+  };
+
+  //Postal Code 
   const [inputValue, setInputValue] = useState('');
   const [isValid, setIsValid] = useState(true);
   const regexPattern = /^\d{5}$/;
@@ -22,6 +83,7 @@ const Address = () => {
     }
   };
 
+  //City
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
@@ -55,7 +117,7 @@ const Address = () => {
           </div>
           <div className="add-address-sub-item">
             <p>Postal Code</p>
-            <input type='text' placeholder="Enter a 5-digit number" value={inputValue}
+            <input type='text' placeholder="Enter your postal code" value={inputValue}
               onChange={handleInputChange}
             ></input>
             {!isValid && inputValue !== '' && (
@@ -63,6 +125,19 @@ const Address = () => {
             )}
           </div>
         </div>
+        <div className="phone-number-container">
+        <label htmlFor="phone-number">Phone Number</label>
+        <input
+          id="phone-number"
+          type="text"
+          value={inputPhoneNumberValue}
+          onChange={handlePhoneNumberChange}
+          placeholder="Enter your phone number"
+        />
+        {!isValid && inputPhoneNumberValue !== '' && (
+              <div style={{ color: 'red' }}>Please enter a valid 10-13 digit number.</div>
+            )}
+      </div>
         <div class='button-sampingan'>
           <Link to={'/'} style={{ textDecoration: "none" }}>
             <button className='cancel'>Cancel</button>
