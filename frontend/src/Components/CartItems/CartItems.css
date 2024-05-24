@@ -85,17 +85,19 @@
   .container {
     display: flex;
     align-items: center; /* This will vertically center align the items */
-  }
+    margin-top: 10px;
+}
   
   /* Tooltip text */
   .tooltip .tooltiptext {
     visibility: hidden;
-    width: 220px;
+    width: 300px;
     background-color: #0CC0DF;
     color: white;
     text-align: center;
     border-radius: 75px;
     padding: 5px 0;
+    font-size: 14px;
   
     /* Position the tooltip */
     position: absolute;

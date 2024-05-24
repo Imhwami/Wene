@@ -1,52 +1,29 @@
 const port = 4000;
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
+const User = require('./models/User.js'); // Import the User model
+const Product = require('./models/Product.js'); // Assume you have a separate model for Product
 
-
+const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Database Connection with MongoDB: 
-//mongodb+srv://c30105210008:<password>@cluster0.esdliof.mongodb.net/
+// Database Connection with MongoDB
+mongoose.connect("mongodb+srv://c30105210008:%40Kinobikinobi22@cluster0.esdliof.mongodb.net/e-commerce", {
+});
 
-mongoose.connect("mongodb+srv://c30105210008:%40Kinobikinobi22@cluster0.esdliof.mongodb.net/e-commerce")
 // API Creation
 app.get("/", (req, res) => {
     res.send("Express App is Running");
 })
 
-//Schema creating for User model
-const Users = mongoose.model('Users', {
-    name: {
-        type: String,
-    },
-    email: {
-        type: String,
-        unique: true,
-    },
-    password: {
-        type: String
-    },
-    cartData: {
-        type: Object,
-    },
-    addressData:{
-        type: Object,
-    },
-    date: {
-        type: Date,
-        default: Date.now,
-    }
-})
-
 // Creating Endpoint for registering the user 
 app.post('/signup', async (req, res) => {
-    let check = await Users.findOne({ email: req.body.email })
+    let check = await User.findOne({ email: req.body.email })
 
     if (check) {
         return res.status(400).json({ success: false, errors: "existing user found with same email address" })
@@ -55,7 +32,7 @@ app.post('/signup', async (req, res) => {
     for (let i = 0; i < 300; i++) {
         cart[i] = 0;
     }
-    const user = new Users({
+    const user = new User({
         name: req.body.username,
         email: req.body.email,
         password: req.body.password,
@@ -75,7 +52,7 @@ app.post('/signup', async (req, res) => {
 
 //creating endpoint for user login
 app.post('/login', async (req, res) => {
-    let user = await Users.findOne({ email: req.body.email });
+    let user = await User.findOne({ email: req.body.email });
     if (user) {
         const passCompare = req.body.password === user.password;
         if (passCompare) {
@@ -84,8 +61,9 @@ app.post('/login', async (req, res) => {
                     id: user.id
                 }
             }
+            console.log("user id", data);
             const token = jwt.sign(data, 'secret_ecom');
-            res.json({ success: true, token })
+            res.json({ success: true, token, userId: user.id })
         }
         else {
             res.json({ success: false, errors: "Wrong Password" });
@@ -100,13 +78,13 @@ app.post('/login', async (req, res) => {
 app.get('/newcollections', async (req, res) => {
     let products = await Product.find({});
     let newcollection = products.slice(1).slice(-8);
-    console.log("NewCollectio Fetched");
+    console.log("NewCollection Fetched");
     res.send(newcollection);
 })
 
 //creating endpoint for popular in women section 
 app.get('/popularinwomen', async (req, res) => {
-    let products = await Product.find({ category: "women" })
+    let products = await Product.find({ category: "wig" })
     let popular_in_women = products.slice(0, 4);
     console.log("Popular in women fetched");
     res.send(popular_in_women);
@@ -128,28 +106,29 @@ const fetchUser = async (req, res, next) => {
     }
 }
 
-//creating endpoint for adding products in cartdata
+//creating endpoint for adding products in cart data
 app.post('/addtocart', fetchUser, async (req, res) => {
     console.log("Added", req.body.itemId);
-    let userData = await Users.findOne({ _id: req.user.id });
+    let userData = await User.findOne({ _id: req.user.id });
     userData.cartData[req.body.itemId] += 1;
-    await Users.findOneAndUpdate({ _id: req.user.id }, { cartData: userData.cartData });
+    await User.findOneAndUpdate({ _id: req.user.id }, { cartData: userData.cartData });
     res.send("Added")
 })
 
-//creating endpoint to remove product from cartdata
+//creating endpoint to remove product from cart data
 app.post('/removefromcart', fetchUser, async (req, res) => {
     console.log("removed", req.body.itemId);
-    let userData = await Users.findOne({ _id: req.user.id });
-    if(userData.cartData[req.body.itemId]>0)
-    userData.cartData[req.body.itemId] -= 1;
-    await Users.findOneAndUpdate({ _id: req.user.id }, { cartData: userData.cartData });
+    let userData = await User.findOne({ _id: req.user.id });
+    if (userData.cartData[req.body.itemId] > 0)
+        userData.cartData[req.body.itemId] -= 1;
+    await User.findOneAndUpdate({ _id: req.user.id }, { cartData: userData.cartData });
     res.send("Removed")
 })
-//creating endpoint to get cartdata
-app.post('/getcart',fetchUser, async(req,res)=>{
+
+//creating endpoint to get cart data
+app.post('/getcart', fetchUser, async (req, res) => {
     console.log("GetCart");
-    let userData = await Users.findOne({_id:req.user.id});
+    let userData = await User.findOne({ _id: req.user.id });
     res.json(userData.cartData);
 })
 
@@ -172,43 +151,6 @@ app.post("/upload", upload.single('product'), (req, res) => {
     })
 })
 
-//Scheme for Creating Products
-
-const Product = mongoose.model("Product", {
-    id: {
-        type: Number,
-        required: true
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    image: {
-        type: String,
-        required: true
-    },
-    category: {
-        type: String,
-        required: true
-    },
-    new_price: {
-        type: Number,
-        required: true
-    },
-    old_price: {
-        type: Number,
-        required: true
-    },
-    date: {
-        type: Date,
-        default: Date.now,
-    },
-    available: {
-        type: Boolean,
-        default: true
-    },
-})
-
 app.post('/addproduct', async (req, res) => {
     let products = await Product.find({});
     let id;
@@ -216,8 +158,7 @@ app.post('/addproduct', async (req, res) => {
         let last_product_array = products.slice(-1);
         let last_product = last_product_array[0];
         id = last_product.id + 1;
-    }
-    else {
+    } else {
         id = 1;
     }
     const product = new Product({
@@ -237,6 +178,49 @@ app.post('/addproduct', async (req, res) => {
     })
 })
 
+// Assuming fetchUser middleware is already defined and used to verify JWT and set req.user
+
+app.get('/alladdress', fetchUser, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        res.json({ success: true, addresses: user.addresses });
+    } catch (error) {
+        console.error("Error fetching addresses:", error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
+
+
+app.post('/addaddress', async (req, res) => {
+    const { userId, address_details, address_note, city, postal_code, phone_number } = req.body;
+
+    if (!userId) {
+        return res.status(400).json({ success: false, message: 'User ID is required' });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    const newAddress = {
+        address_details,
+        address_note,
+        city,
+        postal_code,
+        phone_number
+    };
+
+    user.addresses.push(newAddress);
+    await user.save();
+
+    res.json({ success: true, user });
+});
+
+
 //creating API for deleting Product
 app.post('/removeproduct', async (req, res) => {
     await Product.findOneAndDelete({ id: req.body.id });
@@ -246,9 +230,6 @@ app.post('/removeproduct', async (req, res) => {
         name: req.body.name
     })
 })
-
-
-
 
 //creating API for getting all Products
 app.get('/allproducts', async (req, res) => {
@@ -269,9 +250,9 @@ app.listen(port, (error) => {
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
-      "Access-Control-Allow-Methods",
-      "OPTIONS, GET, POST, PUT, PATCH, DELETE" // what matters here is that OPTIONS is present
+        "Access-Control-Allow-Methods",
+        "OPTIONS, GET, POST, PUT, PATCH, DELETE" // what matters here is that OPTIONS is present
     );
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
     next();
-  });
+});

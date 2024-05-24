@@ -1,16 +1,39 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { ShopContext } from '../../Context/ShopContext'
 import remove_icon from '../Assets/cart_cross_icon.png'
 import './CartItems.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 
 const CartItems = () => {
-    const notify = () => toast("Wow so easy!");
+
+    const [addresses, setAddresses] = useState([]);
+
+    // Fetch addresses when component mounts
+    useEffect(() => {
+        fetchAddresses();
+    }, []);
+
+    const fetchAddresses = async () => {
+        try {
+            const token = localStorage.getItem('auth-token'); // Retrieve the JWT token from local storage
+            const response = await fetch('http://localhost:4000/alladdress', {
+                headers: {
+                    'auth-token': token, // Include the JWT token in the request headers
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch addresses');
+            }
+            const data = await response.json();
+            setAddresses(data.addresses);
+            console.log(data)
+        } catch (error) {
+            console.error('Error fetching addresses:', error);
+        }
+    };
+
     const { getTotalCartAmount, all_product, cartItems, removeFromCart } = useContext(ShopContext)
     return (
         <div className='cartitems'>
@@ -65,26 +88,64 @@ const CartItems = () => {
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
                 <div className="cartitems-promocode">
-                    <p>Please pay to BCA 0198829019 A/N PERSON NAME</p>
-                    
-                    <br /> <div class="container">
-                    <p>Address details: Jalan Jalan</p>
-                    {/* <p>Jalan</p> */}
-                   
-
-                    <div class="tooltip">
-                        <span class="tooltiptext">Edit The Address Details</span>
-                        <Link to={'/address'} style={{ textDecoration: "none" }}>
-                        <button class="edit-button">
-                            <i class="fa fa-pencil"></i> 
-                        </button>    </Link>     </div>           <br />
+                    <p>Please pay to <b>BCA 0198829019 A/N Person Name</b></p>
+                    <br />
                     <hr />
-                   
+                    <br />
+                    <div className="container">
+                    <h2>Address Information</h2>
+                        <div class="tooltip">
+                            <span class="tooltiptext">Replace the address with the new one</span>
+                            <Link to={'/address'} style={{ textDecoration: "none" }}>
+                                <button class="edit-button">
+                                    <i class="fa fa-exchange"></i>
+                                </button>
+                            </Link>
+                        </div></div>
+                    <div className="container">
+                        <p><strong>Address details: </strong></p>
+                        {addresses.length > 0 && (
+                            <div key={addresses[addresses.length - 1]._id}>
+                                <p> &nbsp;{addresses[addresses.length - 1].address_details}</p>
+                            </div>
+                        )}
+                        {addresses.length > 0 && (
+                            <div key={addresses[addresses.length - 1]._id}>
+                                <p> &nbsp;{addresses[addresses.length - 1].postal_code}</p>
+                            </div>
+                        )}
+
+                        <hr />
                     </div>
+                    <div className='container'>
+                        <p><b>Note: </b></p>
+                        {addresses.length > 0 && (
+                            <div key={addresses[addresses.length - 1]._id}>
+                                <p> &nbsp;{addresses[addresses.length - 1].address_note}</p>
+                            </div>
+                        )}  
+                    </div>
+                    <div className='container'>
+                        <p><b>City: </b></p>
+                        {addresses.length > 0 && (
+                            <div key={addresses[addresses.length - 1]._id}>
+                                <p> &nbsp;{addresses[addresses.length - 1].city}</p>
+                            </div>
+                        )}  
+                    </div>
+                    <div className='container'>
+                        <p><b>Phone Number: </b></p>
+                        {addresses.length > 0 && (
+                            <div key={addresses[addresses.length - 1]._id}>
+                                <p> &nbsp;{addresses[addresses.length - 1].phone_number}</p>
+                            </div>
+                        )}  
+                    </div>
+                    <br />
                 </div>
             </div>
         </div>
     )
 }
 
-export default CartItems
+export default CartItems;
