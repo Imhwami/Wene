@@ -85,9 +85,25 @@ const ShopContextProvider = (props) => {
         }
         return totalItem;
     }
-    const contextValue = { getTotalCartItems, getTotalCartAmount, all_product, cartItems, addToCart, removeFromCart };
 
+    const clearCart = () => {
+        setCartItems(getDefaultCart());
+        if (localStorage.getItem('auth-token')) {
+            fetch('http://localhost:4000/clearcart', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/form-data',
+                    'auth-token': `${localStorage.getItem('auth-token')}`,
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => console.log(data));
+        }
+    }
+    const contextValue = { getTotalCartItems, getTotalCartAmount, all_product, cartItems, addToCart, removeFromCart, clearCart };
 
+    
     return (
         <ShopContext.Provider value={contextValue}>
             {props.children}

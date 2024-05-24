@@ -112,7 +112,7 @@ app.post('/addtocart', fetchUser, async (req, res) => {
     let userData = await User.findOne({ _id: req.user.id });
     userData.cartData[req.body.itemId] += 1;
     await User.findOneAndUpdate({ _id: req.user.id }, { cartData: userData.cartData });
-    res.send("Added")
+    res.json({ success: true, message: "Item added to cart" });
 })
 
 //creating endpoint to remove product from cart data
@@ -124,6 +124,20 @@ app.post('/removefromcart', fetchUser, async (req, res) => {
     await User.findOneAndUpdate({ _id: req.user.id }, { cartData: userData.cartData });
     res.send("Removed")
 })
+
+app.post('/clearcart', fetchUser, async (req, res) => {
+    console.log("Clear cart")
+    try {
+        let userData = await User.findOne({ _id: req.user.id });
+        userData.cartData = {}; // Clear the cart data
+        await User.findOneAndUpdate({ _id: req.user.id }, { cartData: userData.cartData });
+        res.send("Cart cleared");
+    } catch (error) {
+        console.error("Error clearing cart:", error);
+        res.status(500).send("An error occurred while clearing the cart");
+    }
+});
+
 
 //creating endpoint to get cart data
 app.post('/getcart', fetchUser, async (req, res) => {
