@@ -85,7 +85,7 @@ const CartItems = () => {
             })}
             <div className="cartitems-down">
                 <div className="cartitems-total">
-                    <h1>Cart Totals</h1>
+                    <h2>Cart Summary</h2>
                     <div>
                         <div className="cartitems-total-item">
                             <p>Subtotal</p>
@@ -116,7 +116,7 @@ const CartItems = () => {
                         <div className="tooltip">
                             <span className="tooltiptext">Replace the address with the new one</span>
                             <Link to={'/address'} style={{ textDecoration: "none" }}>
-                                <button className="edit-button">
+                                <button className="replace-button">
                                     <i className="fa fa-exchange"></i>
                                 </button>
                             </Link>
