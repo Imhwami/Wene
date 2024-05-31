@@ -79,7 +79,7 @@
     color: white;
     background: #0CC0DF;
     margin-bottom: 40px;
-    border: none;
+    border:1px solid #0CC0DF ;
     outline: none;
     cursor: pointer;
     border-radius: 75px;
