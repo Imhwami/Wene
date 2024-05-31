@@ -6,9 +6,17 @@ import remove_icon from '../Assets/cart_cross_icon.png';
 import './CartItems.css';
 
 const CartItems = () => {
+    const navigate = useNavigate();
+
+    const handleReplaceButtonClick = () => {
+        const userConfirmed = window.confirm("Are you sure you want to continue? Once you add the new address, the past data will be deleted.");
+        if (userConfirmed) {
+            navigate('/address');
+        }
+    };
+
     const [addresses, setAddresses] = useState([]);
     const { getTotalCartAmount, all_product, cartItems, removeFromCart, clearCart } = useContext(ShopContext);
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetchAddresses();
@@ -115,49 +123,67 @@ const CartItems = () => {
                         <h2>Address Information</h2>
                         <div className="tooltip">
                             <span className="tooltiptext">Replace the address with the new one</span>
-                            <Link to={'/address'} style={{ textDecoration: "none" }}>
-                                <button className="replace-button">
+                                <button className="replace-button" onClick={handleReplaceButtonClick}>
                                     <i className="fa fa-exchange"></i>
                                 </button>
-                            </Link>
                         </div>
                     </div>
                     <div className="container">
                         <p><strong>Address details: </strong></p>
-                        {addresses.length > 0 && (
-                            <div key={addresses[addresses.length - 1]._id}>
-                                <p> &nbsp;{addresses[addresses.length - 1].address_details}</p>
-                            </div>
-                        )}
-                        {addresses.length > 0 && (
-                            <div key={addresses[addresses.length - 1]._id}>
-                                <p> &nbsp;{addresses[addresses.length - 1].postal_code}</p>
-                            </div>
+                        {addresses.length > 0 ? (
+                            <>
+                                <div key={addresses[addresses.length - 1]._id}>
+                                    <p> &nbsp;{addresses[addresses.length - 1].address_details}</p>
+                                </div>
+                                <div key={addresses[addresses.length - 1]._id + '-postal'}>
+                                    <p> &nbsp;{addresses[addresses.length - 1].postal_code}</p>
+                                </div>
+                            </>
+                        ) : (
+                            <button onClick={handleReplaceButtonClick}>
+                            <p style={{color: 'red', fontSize:'14px'}}>&nbsp;Address details is empty, please fill in to edit the address.</p>
+                            </button>
                         )}
                         <hr />
                     </div>
                     <div className='container'>
                         <p><b>Note: </b></p>
-                        {addresses.length > 0 && (
+                        {addresses.length > 0 ? (
+                            
                             <div key={addresses[addresses.length - 1]._id}>
                                 <p> &nbsp;{addresses[addresses.length - 1].address_note}</p>
                             </div>
-                        )}
+                        ) : (
+                            <button onClick={handleReplaceButtonClick}>
+                            <p style={{color: 'red', fontSize:'14px'}}>&nbsp; Note is empty, please fill in to edit the address.</p>
+                            </button>
+
+                        )
+                    }
                     </div>
                     <div className='container'>
                         <p><b>City: </b></p>
-                        {addresses.length > 0 && (
+                        {addresses.length > 0 ? (
                             <div key={addresses[addresses.length - 1]._id}>
                                 <p> &nbsp;{addresses[addresses.length - 1].city}</p>
                             </div>
-                        )}
+                        ) : (
+                            <button onClick={handleReplaceButtonClick}>
+                            <p style={{color: 'red', fontSize:'14px'}}>&nbsp;City is empty, please fill in to edit the address.</p>
+                            </button>
+                        )
+                    }
                     </div>
                     <div className='container'>
                         <p><b>Phone Number: </b></p>
-                        {addresses.length > 0 && (
+                        {addresses.length > 0 ? (
                             <div key={addresses[addresses.length - 1]._id}>
                                 <p> &nbsp;{addresses[addresses.length - 1].phone_number}</p>
                             </div>
+                        ) : (
+                            <button onClick={handleReplaceButtonClick}>
+                            <p style={{color: 'red', fontSize:'14px'}}>&nbsp;Phone Number is empty, please fill in to edit the address.</p>
+                            </button>
                         )}
                     </div>
                     <br />
