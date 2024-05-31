@@ -1,11 +1,23 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './Successfull.css'
 import { Link } from 'react-router-dom'
 
 
 const Successfull = () => {
+    const [bookingId, setBookingId] = useState("12345-ABCDE");
+    const handleCopyClick = () => {
+        navigator.clipboard.writeText(bookingId)
+            .then(() => {
+                alert("Booking ID copied to clipboard!");
+            })
+            .catch(err => {
+                console.error("Could not copy text: ", err);
+            });
+    };
+    const handleChatClick = () => {
+        window.open("https://alvo.chat/4w5A", "_blank");
+    };
     return (
-
         <div class='content'>
             <div class='fa fa-check-circle-o symbol'></div>
             <div class='title'></div>
@@ -36,16 +48,21 @@ const Successfull = () => {
                     </radialGradient>
                 </defs>
             </svg>
-            <div class='button-sampingan'>
-                <Link to={'/'} style={{ textDecoration: "none" }}>
-                    <button className='back'>Back to Homepage</button>
-                </Link>
-                <Link to={'/wig'} style={{ textDecoration: "none" }}>
-                    <button className='shopping-again'>Shopping again</button>
-                </Link>
-
+            <div style={{display: 'flex', justifyContent: 'space-between', marginTop:'40px', alignItems:'center'}}>
+            <p style={{fontSize:'24px'}}>Booking ID: 12345-ABCDE</p>   
+            <button class='copy' onClick={handleCopyClick} title='Copy Booking ID to Chat Our Staff'>
+                Copy
+            </button>
             </div>
+            <div class='button-sampingan'>
+                <Link to={'/wig'} style={{ textDecoration: "none" }}>
+                    <button className='back'>Shopping Again</button>
+                </Link>
+                    <button className='shopping-again' onClick={handleChatClick}>Chat Our Staff</button>
+            </div>
+
         </div>
+        
     )
 }
 

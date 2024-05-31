@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { ShopContext } from '../../Context/ShopContext';
 import remove_icon from '../Assets/cart_cross_icon.png';

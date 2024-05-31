@@ -250,6 +250,7 @@ app.get('/allproducts', async (req, res) => {
     let products = await Product.find({});
     console.log("All Products Fetched")
     res.send(products)
+    console.log("products data", products)
 })
 
 app.listen(port, (error) => {

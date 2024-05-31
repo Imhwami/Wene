@@ -153,6 +153,20 @@ body {
   margin: 15px;
   gap: 20px;
 }
+.copy{
+  font-size: 18px;
+  height: 30px;
+  width: 45px;
+  margin-left: 10px;
+  transition: all ease-in-out 0.2s;
+  cursor: pointer;
+  border: 1px solid #0CC0DF;
+  background-color: #fff;
+  font-family: 'avenir';
+}
+.copy:hover{
+  background-color: #ddd;
+}
 
 .back{
   display: flex;
