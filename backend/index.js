@@ -63,7 +63,7 @@ app.post('/login', async (req, res) => {
             }
             console.log("user id", data);
             const token = jwt.sign(data, 'secret_ecom');
-            res.json({ success: true, token, userId: user.id })
+            res.json({ success: true, token, userId: user.id, email: user.email })
         }
         else {
             res.json({ success: false, errors: "Wrong Password" });

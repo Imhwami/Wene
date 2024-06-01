@@ -79,8 +79,8 @@ const LoginSignup = () => {
     }).then((response) => response.json()).then((data) => responseData = data);
     if (responseData.success) {
       localStorage.setItem('auth-token', responseData.token);
-      console.log(responseData.userId);
       localStorage.setItem('userId', responseData.userId);
+      localStorage.setItem('email', responseData.email);
       window.location.replace("/");
     } else {
       alert(responseData.errors);

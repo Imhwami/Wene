@@ -4,18 +4,18 @@ import { Link } from 'react-router-dom'
 
 
 const Successfull = () => {
-    const [bookingId, setBookingId] = useState("12345-ABCDE");
+    const email = localStorage.getItem('email');
     const handleCopyClick = () => {
-        navigator.clipboard.writeText(bookingId)
+        navigator.clipboard.writeText(email)
             .then(() => {
-                alert("Booking ID copied to clipboard!");
+                alert("Email copied to clipboard!");
             })
             .catch(err => {
                 console.error("Could not copy text: ", err);
             });
     };
     const handleChatClick = () => {
-        window.open("https://alvo.chat/4w5A", "_blank");
+        window.open("https://alvo.chat/4w7b", "_blank");
     };
     return (
         <div class='content'>
@@ -49,8 +49,8 @@ const Successfull = () => {
                 </defs>
             </svg>
             <div style={{display: 'flex', justifyContent: 'space-between', marginTop:'40px', alignItems:'center'}}>
-            <p style={{fontSize:'24px'}}>Booking ID: 12345-ABCDE</p>   
-            <button class='copy' onClick={handleCopyClick} title='Copy Booking ID to Chat Our Staff'>
+            <p style={{fontSize:'24px'}}>Email: {email}</p>   
+            <button class='copy' onClick={handleCopyClick} title='In case you forget your email, please copy your email and chat with our staff'>
                 Copy
             </button>
             </div>
@@ -58,7 +58,7 @@ const Successfull = () => {
                 <Link to={'/wig'} style={{ textDecoration: "none" }}>
                     <button className='back'>Shopping Again</button>
                 </Link>
-                    <button className='shopping-again' onClick={handleChatClick}>Chat Our Staff</button>
+                    <button className='shopping-again' title='You can continue your shopping journey by Chat Our Staff' onClick={handleChatClick}>Chat Our Staff</button>
             </div>
 
         </div>
