@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { ShopContext } from '../../Context/ShopContext';
 import remove_icon from '../Assets/cart_cross_icon.png';
@@ -7,6 +7,24 @@ import './CartItems.css';
 
 const CartItems = () => {
     const navigate = useNavigate();
+    const [addresses, setAddresses] = useState([]);
+    const { getTotalCartAmount, all_product, cartItems, removeFromCart, clearCart, getTotalCartItems} = useContext(ShopContext);
+    function calculateAdditionalServiceCharge() {
+        const totalCartItems = getTotalCartItems();
+        let additionalServiceCharge;
+    
+        if (totalCartItems > 2) {
+            additionalServiceCharge = 30000 * totalCartItems;
+        } else {
+            additionalServiceCharge = 60000 * totalCartItems;
+        }
+        console.log("Total Cart Items:", totalCartItems);
+        console.log("Additional Service Charge:", additionalServiceCharge);
+        return additionalServiceCharge
+    }
+    
+    const serviceCharge = calculateAdditionalServiceCharge();
+
 
     const handleReplaceButtonClick = () => {
         const userConfirmed = window.confirm("Are you sure you want to continue? Once you add the new address, the past data will be deleted.");
@@ -15,19 +33,16 @@ const CartItems = () => {
         }
     };
 
-    const [addresses, setAddresses] = useState([]);
-    const { getTotalCartAmount, all_product, cartItems, removeFromCart, clearCart } = useContext(ShopContext);
-
     useEffect(() => {
         fetchAddresses();
     }, []);
 
     const fetchAddresses = async () => {
         try {
-            const token = localStorage.getItem('auth-token'); // Retrieve the JWT token from local storage
+            const token = localStorage.getItem('auth-token');
             const response = await fetch('http://localhost:4000/alladdress', {
                 headers: {
-                    'auth-token': token, // Include the JWT token in the request headers
+                    'auth-token': token,
                 },
             });
             if (!response.ok) {
@@ -43,11 +58,11 @@ const CartItems = () => {
 
     const handleProceedToCheckout = async () => {
         try {
-            const token = localStorage.getItem('auth-token'); // Retrieve the JWT token from local storage
+            const token = localStorage.getItem('auth-token');
             const response = await fetch('http://localhost:4000/clearcart', {
                 method: 'POST',
                 headers: {
-                    'auth-token': token, // Include the JWT token in the request headers
+                    'auth-token': token,
                 },
             });
             if (!response.ok) {
@@ -55,11 +70,20 @@ const CartItems = () => {
             }
             await response.text();
             clearCart();
-            navigate('/successfull'); // Navigate to the success page
+            navigate('/successfull');
         } catch (error) {
             console.error('Error clearing cart:', error);
             alert("An error occurred while clearing the cart");
         }
+    };
+
+    const getTotalWithService = () => {
+        const includeService = localStorage.getItem('includeService');
+        let total = getTotalCartAmount();
+        if (includeService === 'Yes') {
+            total += serviceCharge;
+        }
+        return total;
     };
 
     return (
@@ -105,15 +129,23 @@ const CartItems = () => {
                             <p>Free</p>
                         </div>
                         <hr />
+                        {localStorage.getItem('includeService') === 'Yes' && (
+                            <>
+                                <div className="cartitems-total-item">
+                                    <p>Service Charge</p>
+                                    <p>Rp{serviceCharge}</p>
+                                </div>
+                                <hr />
+                            </>
+                        )}
                         <div className="cartitems-total-item">
                             <h3>Total</h3>
-                            <h3>Rp{getTotalCartAmount()}</h3>
+                            <h3>Rp{getTotalWithService()}</h3>
                         </div>
                     </div>
                     <button className='checkout' onClick={handleProceedToCheckout}>PROCEED TO CHECKOUT</button>
                 </div>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
                 <div className="cartitems-promocode">
                     <p>Please pay to <b>BCA 0198829019 A/N Person Name</b></p>
                     <br />
@@ -123,9 +155,9 @@ const CartItems = () => {
                         <h2>Address Information</h2>
                         <div className="tooltip">
                             <span className="tooltiptext">Replace the address with the new one</span>
-                                <button className="replace-button" onClick={handleReplaceButtonClick}>
-                                    <i className="fa fa-exchange"></i>
-                                </button>
+                            <button className="replace-button" onClick={handleReplaceButtonClick}>
+                                <i className="fa fa-exchange"></i>
+                            </button>
                         </div>
                     </div>
                     <div className="container">
@@ -141,7 +173,7 @@ const CartItems = () => {
                             </>
                         ) : (
                             <button onClick={handleReplaceButtonClick}>
-                            <p style={{color: 'red', fontSize:'14px'}}>&nbsp;Address details is empty, please fill in to edit the address.</p>
+                                <p style={{color: 'red', fontSize:'14px'}}>&nbsp;Address details is empty, please fill in to edit the address.</p>
                             </button>
                         )}
                         <hr />
@@ -149,17 +181,14 @@ const CartItems = () => {
                     <div className='container'>
                         <p><b>Note: </b></p>
                         {addresses.length > 0 ? (
-                            
                             <div key={addresses[addresses.length - 1]._id}>
                                 <p> &nbsp;{addresses[addresses.length - 1].address_note}</p>
                             </div>
                         ) : (
                             <button onClick={handleReplaceButtonClick}>
-                            <p style={{color: 'red', fontSize:'14px'}}>&nbsp; Note is empty, please fill in to edit the address.</p>
+                                <p style={{color: 'red', fontSize:'14px'}}>&nbsp;Note is empty, please fill in to edit the address.</p>
                             </button>
-
-                        )
-                    }
+                        )}
                     </div>
                     <div className='container'>
                         <p><b>City: </b></p>
@@ -169,10 +198,9 @@ const CartItems = () => {
                             </div>
                         ) : (
                             <button onClick={handleReplaceButtonClick}>
-                            <p style={{color: 'red', fontSize:'14px'}}>&nbsp;City is empty, please fill in to edit the address.</p>
+                                <p style={{color: 'red', fontSize:'14px'}}>&nbsp;City is empty, please fill in to edit the address.</p>
                             </button>
-                        )
-                    }
+                        )}
                     </div>
                     <div className='container'>
                         <p><b>Phone Number: </b></p>
@@ -182,7 +210,7 @@ const CartItems = () => {
                             </div>
                         ) : (
                             <button onClick={handleReplaceButtonClick}>
-                            <p style={{color: 'red', fontSize:'14px'}}>&nbsp;Phone Number is empty, please fill in to edit the address.</p>
+                                <p style={{color: 'red', fontSize:'14px'}}>&nbsp;Phone Number is empty, please fill in to edit the address.</p>
                             </button>
                         )}
                     </div>
