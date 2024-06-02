@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import './CSS/LoginSignup.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const LoginSignup = () => {
+  
   const [isFocused, setIsFocused] = useState(false);
   const [state, setState] = useState("Login");
   const [formData, setFormData] = useState({
@@ -34,9 +39,7 @@ const LoginSignup = () => {
   };
 
   const validateLoginForm = () => {
-											  
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-												 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
     return (
       formData.password !== "" &&
@@ -47,9 +50,7 @@ const LoginSignup = () => {
   };
 
   const validateSignUpForm = () => {
-											  
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-												 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
     return (
       formData.username !== "" &&
@@ -66,7 +67,7 @@ const LoginSignup = () => {
       alert("Please fill out all required fields with valid data.");
       return;
     }
-
+  
     console.log("Login Function Executed", formData);
     let responseData;
     await fetch('http://localhost:4000/login', {
@@ -80,13 +81,20 @@ const LoginSignup = () => {
     if (responseData.success) {
       localStorage.setItem('auth-token', responseData.token);
       localStorage.setItem('userId', responseData.userId);
-      localStorage.setItem('email', responseData.email);
-      window.location.replace("/");
+      localStorage.setItem('email', responseData.email);         
+      toast.success("User successfully logged in", {
+        className: 'custom-toast',
+        icon: <FontAwesomeIcon icon={faHeart} className="custom-toast-icon fa-beat" />
+            });
+      
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 2000); // Redirect after 2 seconds to allow toast to display
     } else {
       alert(responseData.errors);
     }
   };
-
+  
   const signup = async () => {
     setFormSubmitted(true);
     if (!agree) {
@@ -162,7 +170,7 @@ const LoginSignup = () => {
                 onChange={changeHandler}
                 onFocus={onFocus}
                 onBlur={onBlur}
-                type={showPassword ? "text" : "password"}
+                type={showPassword || isFocused ?"text" : "password"}
                 placeholder='Input your password'
                 required
               />
@@ -203,6 +211,17 @@ const LoginSignup = () => {
         )}
 							
       </div>
+      <ToastContainer
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        className="custom-toast-container"
+      />
     </div>
   );
 }
