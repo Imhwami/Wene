@@ -89,7 +89,7 @@ const LoginSignup = () => {
       
       setTimeout(() => {
         window.location.replace("/");
-      }, 2000); // Redirect after 2 seconds to allow toast to display
+      }, 200); // Redirect after 2 seconds to allow toast to display
     } else {
       alert(responseData.errors);
     }

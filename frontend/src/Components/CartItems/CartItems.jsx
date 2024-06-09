@@ -8,23 +8,12 @@ import './CartItems.css';
 const CartItems = () => {
     const navigate = useNavigate();
     const [addresses, setAddresses] = useState([]);
-    const { getTotalCartAmount, all_product, cartItems, removeFromCart, clearCart, getTotalCartItems} = useContext(ShopContext);
-    function calculateAdditionalServiceCharge() {
-        const totalCartItems = getTotalCartItems();
-        let additionalServiceCharge;
-    
-        if (totalCartItems > 2) {
-            additionalServiceCharge = 30000 * totalCartItems;
-        } else {
-            additionalServiceCharge = 60000 * totalCartItems;
-        }
-        console.log("Total Cart Items:", totalCartItems);
-        console.log("Additional Service Charge:", additionalServiceCharge);
-        return additionalServiceCharge
-    }
-    
-    const serviceCharge = calculateAdditionalServiceCharge();
+    const { cartItems, all_product, removeFromCart, getTotalCartItems, getTotalCartAmount, clearCart, updateServiceSelection, getServiceCharge, getTotalWithServiceCharge } = useContext(ShopContext);
+    const [serviceSelection, setServiceSelection] = useState(() => JSON.parse(localStorage.getItem('serviceSelection')) || []);
 
+    useEffect(() => {
+        localStorage.setItem('serviceSelection', JSON.stringify(serviceSelection));
+    }, [serviceSelection]);
 
     const handleReplaceButtonClick = () => {
         const userConfirmed = window.confirm("Are you sure you want to continue? Once you add the new address, the past data will be deleted.");
@@ -32,6 +21,19 @@ const CartItems = () => {
             navigate('/address');
         }
     };
+
+    const calculateAdditionalServiceCharge = () => {
+        let additionalServiceCharge = 0;
+        for (const { productId, selection } of serviceSelection) {
+            const item = all_product.find(product => product.id === productId);
+            if (cartItems[item.id] > 0 && selection === 'Yes') {
+                additionalServiceCharge += 30000;
+            }
+        }
+        return additionalServiceCharge;
+    };
+
+    const serviceCharge = calculateAdditionalServiceCharge();
 
     useEffect(() => {
         fetchAddresses();
@@ -62,7 +64,9 @@ const CartItems = () => {
             const response = await fetch('http://localhost:4000/clearcart', {
                 method: 'POST',
                 headers: {
-                    'auth-token': token,
+                    Accept: 'application/form-data',
+                    'auth-token': `${localStorage.getItem('auth-token')}`,
+                    'Content-Type': 'application/json'
                 },
             });
             if (!response.ok) {
@@ -78,12 +82,15 @@ const CartItems = () => {
     };
 
     const getTotalWithService = () => {
-        const includeService = localStorage.getItem('includeService');
         let total = getTotalCartAmount();
-        if (includeService === 'Yes') {
-            total += serviceCharge;
-        }
+        total += serviceCharge;
         return total;
+    };
+
+    const handleRemoveFromCart = (productId) => {
+        removeFromCart(productId);
+        const updatedServiceSelection = serviceSelection.filter(item => item.productId !== productId);
+        setServiceSelection(updatedServiceSelection);
     };
 
     return (
@@ -107,7 +114,7 @@ const CartItems = () => {
                                 <p>Rp {e.new_price}</p>
                                 <button className='cartitems-quantity'>{cartItems[e.id]}</button>
                                 <p>{e.new_price * cartItems[e.id]}</p>
-                                <img className='cartitems-remove-icon' src={remove_icon} onClick={() => { removeFromCart(e.id) }} alt="" />
+                                <img className='cartitems-remove-icon' src={remove_icon} onClick={() => handleRemoveFromCart(e.id)} alt="" />
                             </div>
                             <hr />
                         </div>
@@ -129,7 +136,7 @@ const CartItems = () => {
                             <p>Free</p>
                         </div>
                         <hr />
-                        {localStorage.getItem('includeService') === 'Yes' && (
+                        {Object.values(serviceSelection).some(item => item.selection === 'Yes') && (
                             <>
                                 <div className="cartitems-total-item">
                                     <p>Service Charge</p>
