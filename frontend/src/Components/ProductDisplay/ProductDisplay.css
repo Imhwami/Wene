@@ -135,24 +135,13 @@
      visibility: visible;
    }
  
-   .edit-button{
-    width: 30px;
-    height: 30px;
-    outline: none;
-    border: 1px solid #7a7a7a;
-    background:white;
-    color: black;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    border-radius: 50%;
-}
 
-.edit-button1:hover{
+.question-mark:hover{
     background-color: white; 
     color: black;
     border: 1px solid #0CC0DF;
 }
+
 
 @media(max-width:1280px) {
     .productdisplay{
@@ -204,6 +193,10 @@
         margin-top: 5px;
         font-size: 14px;
     }
+    .productdisplay-right-sizes button{
+        width: 60px;
+        height: 60px;
+    }
 }
 @media(max-width:1024px) {
     .productdisplay{
@@ -244,6 +237,22 @@
     .productdisplay-right-category{
         font-size: 12px;
     }
+    .productdisplay-right-sizes button{
+        width: 50px;
+        height: 50px;
+    }
+    .question-mark{
+        width: 5px;
+        height: 5px;
+        outline: none;
+        border: 1px solid #7a7a7a;
+        background:white;
+        color: black;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    
 }
 
 @media(max-width:800px) {
@@ -294,6 +303,10 @@
     .productdisplay-right-category{
         font-size: 10px;
     }
+    .productdisplay-right-sizes button{
+        width: 40px;
+        height: 40px;
+    }
 }
 @media (max-width:500px) {
     .productdisplay{
@@ -342,6 +355,12 @@
     .productdisplay-right-category{
         font-size: 16px;
     }
+    .productdisplay-right-sizes button{
+        width: 50px;
+        height: 50px;
+    }
+    .question-mark{
 
+    }
     
 }
