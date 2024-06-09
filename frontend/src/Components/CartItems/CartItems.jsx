@@ -26,12 +26,13 @@ const CartItems = () => {
         let additionalServiceCharge = 0;
         for (const { productId, selection } of serviceSelection) {
             const item = all_product.find(product => product.id === productId);
-            if (cartItems[item.id] > 0 && selection === 'Yes') {
+            if (item && cartItems[item.id] > 0 && selection === 'Yes') {
                 additionalServiceCharge += 30000;
             }
         }
         return additionalServiceCharge;
     };
+    
 
     const serviceCharge = calculateAdditionalServiceCharge();
 

@@ -38,7 +38,9 @@ const ShopContextProvider = (props) => {
     }, [serviceSelection]);
 
     const addToCart = (itemId) => {
-        setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+        const id = Number(itemId); // Ensure itemId is a number
+        setCartItems((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
+    
         if (localStorage.getItem('auth-token')) {
             fetch('http://localhost:4000/addtocart', {
                 method: 'POST',
@@ -47,15 +49,18 @@ const ShopContextProvider = (props) => {
                     'auth-token': `${localStorage.getItem('auth-token')}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ "itemId": itemId })
+                body: JSON.stringify({ "itemId": id }) // Ensure itemId is passed as a number
             })
-                .then((response) => response.json())
-                .then((data) => console.log(data));
+            .then((response) => response.json())
+            .then((data) => console.log(data));
         }
-    }
+    };
+    
 
     const removeFromCart = (itemId) => {
-        setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+        const id = Number(itemId); // Ensure itemId is a number
+        setCartItems((prev) => ({ ...prev, [id]: (prev[id] || 1) - 1 }));
+    
         if (localStorage.getItem('auth-token')) {
             fetch('http://localhost:4000/removefromcart', {
                 method: 'POST',
@@ -64,12 +69,13 @@ const ShopContextProvider = (props) => {
                     'auth-token': `${localStorage.getItem('auth-token')}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ "itemId": itemId })
+                body: JSON.stringify({ "itemId": id }) // Ensure itemId is passed as a number
             })
-                .then((response) => response.json())
-                .then((data) => console.log(data));
+            .then((response) => response.json())
+            .then((data) => console.log(data));
         }
-    }
+    };
+    
 
     const updateServiceSelection = (productId, selection) => {
         const index = serviceSelection.findIndex(item => item.productId === productId);
