@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const LoginSignup = () => {
-  
+
   const [isFocused, setIsFocused] = useState(false);
   const [state, setState] = useState("Login");
   const [formData, setFormData] = useState({
@@ -64,10 +64,10 @@ const LoginSignup = () => {
   const login = async () => {
     setFormSubmitted(true);
     if (!validateLoginForm()) {
-      alert("Please fill out all required fields with valid data.");
+      toast.error("Please fill out all required fields with valid data.");
       return;
     }
-  
+
     console.log("Login Function Executed", formData);
     let responseData;
     await fetch('http://localhost:4000/login', {
@@ -81,12 +81,12 @@ const LoginSignup = () => {
     if (responseData.success) {
       localStorage.setItem('auth-token', responseData.token);
       localStorage.setItem('userId', responseData.userId);
-      localStorage.setItem('email', responseData.email);         
+      localStorage.setItem('email', responseData.email);
       toast.success("User successfully logged in", {
         className: 'custom-toast',
         icon: <FontAwesomeIcon icon={faHeart} className="custom-toast-icon fa-beat" />
-            });
-      
+      });
+
       setTimeout(() => {
         window.location.replace("/");
       }, 200); // Redirect after 2 seconds to allow toast to display
@@ -94,7 +94,7 @@ const LoginSignup = () => {
       alert(responseData.errors);
     }
   };
-  
+
   const signup = async () => {
     setFormSubmitted(true);
     if (!agree) {
@@ -118,8 +118,15 @@ const LoginSignup = () => {
       body: JSON.stringify(formData),
     }).then((response) => response.json()).then((data) => responseData = data);
     if (responseData.success) {
-      alert("Signup successful! Please log in.");
-      setState("Login"); // Redirect to login form
+      toast.success("User successfully sign up", {
+        className: 'custom-toast',
+        style: {alignItems:'center'},
+        icon: <FontAwesomeIcon icon={faHeart} className="custom-toast-icon fa-beat" />
+      });
+
+      setTimeout(() => {
+        setState("Login")
+      }, 200); // Redirect after 2 seconds to allow toast to display      setState("Login"); // Redirect to login form
       setFormData({ username: "", password: "", email: "" }); // Reset form data
       setFormSubmitted(false); // Reset form submission state
       setAgree(false); // Reset agree state
@@ -152,11 +159,11 @@ const LoginSignup = () => {
                 />
                 {formSubmitted && formData.username === "" && <p style={{ color: 'red' }}>The field is required</p>}
               </>
-            )}		  
+            )}
             <input
               name='email'
               value={formData.email}
-              onChange={changeHandler} 
+              onChange={changeHandler}
               type="email"
               placeholder='Input your email address'
               required
@@ -170,7 +177,7 @@ const LoginSignup = () => {
                 onChange={changeHandler}
                 onFocus={onFocus}
                 onBlur={onBlur}
-                type={showPassword || isFocused ?"text" : "password"}
+                type={showPassword || isFocused ? "text" : "password"}
                 placeholder='Input your password'
                 required
               />
@@ -209,10 +216,9 @@ const LoginSignup = () => {
             Create an account? <span onClick={() => { setState("Sign Up") }}>Click here</span>
           </p>
         )}
-							
+
       </div>
       <ToastContainer
-        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -220,7 +226,7 @@ const LoginSignup = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        className="custom-toast-container"
+        className="custom-toast-body"
       />
     </div>
   );

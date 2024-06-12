@@ -1,5 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 export const ShopContext = createContext(null);
+
 
 const getDefaultCart = () => {
     let cart = {};
@@ -57,25 +59,34 @@ const ShopContextProvider = (props) => {
     };
     
 
-    const removeFromCart = (itemId) => {
+    const removeFromCart = async (itemId) => {
+        console.log("removeFromCart")
         const id = Number(itemId); // Ensure itemId is a number
         setCartItems((prev) => ({ ...prev, [id]: (prev[id] || 1) - 1 }));
     
         if (localStorage.getItem('auth-token')) {
-            fetch('http://localhost:4000/removefromcart', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/form-data',
-                    'auth-token': `${localStorage.getItem('auth-token')}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ "itemId": id }) // Ensure itemId is passed as a number
-            })
-            .then((response) => response.json())
-            .then((data) => console.log(data));
+            try {
+                const response = await fetch('http://localhost:4000/removefromcart', {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/form-data',
+                        'auth-token': `${localStorage.getItem('auth-token')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ "itemId": id }) // Ensure itemId is passed as a number
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    return { success: true, message: data.message };
+                } else {
+                    throw new Error(data.message || 'Failed to remove item');
+                }
+            } catch (error) {
+                console.error("Error removing item from cart:", error);
+                return { success: false, message: error.message };
+            }
         }
     };
-    
 
     const updateServiceSelection = (productId, selection) => {
         const index = serviceSelection.findIndex(item => item.productId === productId);
@@ -88,31 +99,18 @@ const ShopContextProvider = (props) => {
         }
     }
 
-    const getServiceCharge = () => {
-        let serviceCharge = 0;
-        for (const { productId, selection } of serviceSelection) {
-            if (selection === 'Yes' && cartItems[productId] > 0) {
-                serviceCharge = 30000;
-                break;
-            }
-        }
-        return serviceCharge;
-    }
-
-    const getTotalWithServiceCharge = () => {
-        return getTotalCartAmount() + getServiceCharge();
-    }
 
     const getTotalCartAmount = () => {
         let totalAmount = 0;
-        for (const item in cartItems) {
-            if (cartItems[item] > 0) {
-                let itemInfo = all_product.find((product) => product.id === Number(item));
-                totalAmount += itemInfo.new_price * cartItems[item];
+        Object.keys(cartItems).forEach((productId) => {
+            const product = all_product.find(product => product.id === parseInt(productId));
+            if (product && product.new_price) {
+                totalAmount += product.new_price * cartItems[productId];
             }
-        }
+        });
         return totalAmount;
-    }
+    };
+
 
     const getTotalCartItems = () => {
         let totalItem = 0;
@@ -147,11 +145,9 @@ const ShopContextProvider = (props) => {
         all_product,
         cartItems,
         addToCart,
+        updateServiceSelection,
         removeFromCart,
         clearCart,
-        updateServiceSelection,
-        getServiceCharge,
-        getTotalWithServiceCharge,
     };
 
     return (

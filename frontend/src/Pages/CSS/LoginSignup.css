@@ -1,12 +1,3 @@
-.custom-toast-container {
-    position: relative;
-    width: 100%; 
-    height: 100%; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
   .custom-toast {
     position: absolute;
     background-color: #9cdea0 !important; /* Green background */
@@ -15,10 +6,12 @@
     padding: 15px !important; /* Custom padding */
     border-radius: 8px !important; /* Rounded corners */
   }
-  
+
   .custom-toast-body {
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
   }
   
   .custom-toast-icon {

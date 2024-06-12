@@ -117,17 +117,16 @@ app.post('/addtocart', fetchUser, async (req, res) => {
 });
 
 
-//creating endpoint to remove product from cart data
 app.post('/removefromcart', fetchUser, async (req, res) => {
     const itemId = Number(req.body.itemId); // Ensure itemId is a number
     console.log("removed", itemId);
     let userData = await User.findOne({ _id: req.user.id });
-    if (userData.cartData[itemId] > 0)
+    if (userData.cartData[itemId] > 0) {
         userData.cartData[itemId] -= 1;
+    }
     await User.findOneAndUpdate({ _id: req.user.id }, { cartData: userData.cartData });
-    res.send("Removed");
+    res.json({ success: true, message: "Item removed successfully" });
 });
-
 
 app.post('/clearcart', fetchUser, async (req, res) => {
     console.log("Clear cart")

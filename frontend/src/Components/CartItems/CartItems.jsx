@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 import { ShopContext } from '../../Context/ShopContext';
 import remove_icon from '../Assets/cart_cross_icon.png';
 import './CartItems.css';
@@ -8,8 +8,12 @@ import './CartItems.css';
 const CartItems = () => {
     const navigate = useNavigate();
     const [addresses, setAddresses] = useState([]);
-    const { cartItems, all_product, removeFromCart, getTotalCartItems, getTotalCartAmount, clearCart, updateServiceSelection, getServiceCharge, getTotalWithServiceCharge } = useContext(ShopContext);
+    const { cartItems, all_product, removeFromCart, getTotalCartItems, getTotalCartAmount, clearCart } = useContext(ShopContext);
     const [serviceSelection, setServiceSelection] = useState(() => JSON.parse(localStorage.getItem('serviceSelection')) || []);
+
+    useEffect(() => {
+        console.log(all_product);
+    }, [all_product]);    
 
     useEffect(() => {
         localStorage.setItem('serviceSelection', JSON.stringify(serviceSelection));
@@ -24,15 +28,18 @@ const CartItems = () => {
 
     const calculateAdditionalServiceCharge = () => {
         let additionalServiceCharge = 0;
-        for (const { productId, selection } of serviceSelection) {
-            const item = all_product.find(product => product.id === productId);
-            if (item && cartItems[item.id] > 0 && selection === 'Yes') {
-                additionalServiceCharge += 30000;
+        for (const { selection } of serviceSelection) {
+            if (getTotalCartItems() > 0 && selection === 'Yes') {
+                if (getTotalCartItems() < 3) {
+                    additionalServiceCharge = 30000 * getTotalCartItems();
+                } else {
+                    additionalServiceCharge = 20000 * getTotalCartItems();
+                }
             }
         }
         return additionalServiceCharge;
     };
-    
+
 
     const serviceCharge = calculateAdditionalServiceCharge();
 
@@ -49,19 +56,23 @@ const CartItems = () => {
                 },
             });
             if (!response.ok) {
-                throw new Error('Failed to fetch addresses');
+                toast.error('Failed to fetch addresses', {
+                    style: { width: '40vh' },
+                    autoClose: 500
+                });
             }
             const data = await response.json();
             setAddresses(data.addresses);
-            console.log(data);
         } catch (error) {
-            console.error('Error fetching addresses:', error);
+            toast.error('Error fetching addresses:', error, {
+                style: { width: '30vh' },
+                autoClose: 500
+            });
         }
     };
 
     const handleProceedToCheckout = async () => {
         try {
-            const token = localStorage.getItem('auth-token');
             const response = await fetch('http://localhost:4000/clearcart', {
                 method: 'POST',
                 headers: {
@@ -78,7 +89,6 @@ const CartItems = () => {
             navigate('/successfull');
         } catch (error) {
             console.error('Error clearing cart:', error);
-            alert("An error occurred while clearing the cart");
         }
     };
 
@@ -88,10 +98,20 @@ const CartItems = () => {
         return total;
     };
 
-    const handleRemoveFromCart = (productId) => {
-        removeFromCart(productId);
-        const updatedServiceSelection = serviceSelection.filter(item => item.productId !== productId);
-        setServiceSelection(updatedServiceSelection);
+    const handleRemoveFromCart = async (productId) => {
+        const result = await removeFromCart(productId);
+        if (result && result.success) {
+            toast.success(result.message, {
+                style: { width: '30vh', height: '10px', position: 'absolute', marginRight: '30%' },
+            });
+            const updatedServiceSelection = serviceSelection.filter(item => item.productId !== productId);
+            setServiceSelection(updatedServiceSelection);
+        } else {
+            toast.error(result.message || "Failed to remove item from cart", {
+                style: { width: '40vh' },
+                autoClose: 500
+            });
+        }
     };
 
     return (
@@ -107,6 +127,10 @@ const CartItems = () => {
             <hr />
             {all_product.map((e) => {
                 if (cartItems[e.id] > 0) {
+                    if (!e.new_price) {
+                        console.error(`Product ID ${e.id} does not have a new_price defined.`);
+                        return null;
+                    }
                     return (
                         <div key={e.id}>
                             <div className="cartitems-format cartitems-format-main">
@@ -123,6 +147,7 @@ const CartItems = () => {
                 }
                 return null;
             })}
+
             <div className="cartitems-down">
                 <div className="cartitems-total">
                     <h2>Cart Summary</h2>
@@ -181,7 +206,7 @@ const CartItems = () => {
                             </>
                         ) : (
                             <button onClick={handleReplaceButtonClick}>
-                                <p style={{color: 'red', fontSize:'14px'}}>&nbsp;Address details is empty, please fill in to edit the address.</p>
+                                <p style={{ color: 'red', fontSize: '14px' }}>&nbsp;Address details is empty, please fill in to edit the address.</p>
                             </button>
                         )}
                         <hr />
@@ -194,7 +219,7 @@ const CartItems = () => {
                             </div>
                         ) : (
                             <button onClick={handleReplaceButtonClick}>
-                                <p style={{color: 'red', fontSize:'14px'}}>&nbsp;Note is empty, please fill in to edit the address.</p>
+                                <p style={{ color: 'red', fontSize: '14px' }}>&nbsp;Note is empty, please fill in to edit the address.</p>
                             </button>
                         )}
                     </div>
@@ -206,7 +231,7 @@ const CartItems = () => {
                             </div>
                         ) : (
                             <button onClick={handleReplaceButtonClick}>
-                                <p style={{color: 'red', fontSize:'14px'}}>&nbsp;City is empty, please fill in to edit the address.</p>
+                                <p style={{ color: 'red', fontSize: '14px' }}>&nbsp;City is empty, please fill in to edit the address.</p>
                             </button>
                         )}
                     </div>
@@ -218,14 +243,24 @@ const CartItems = () => {
                             </div>
                         ) : (
                             <button onClick={handleReplaceButtonClick}>
-                                <p style={{color: 'red', fontSize:'14px'}}>&nbsp;Phone Number is empty, please fill in to edit the address.</p>
+                                <p style={{ color: 'red', fontSize: '14px' }}>&nbsp;Phone Number is empty, please fill in to edit the address.</p>
                             </button>
                         )}
                     </div>
                     <br />
                 </div>
             </div>
+            <ToastContainer
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
+
     );
 };
 

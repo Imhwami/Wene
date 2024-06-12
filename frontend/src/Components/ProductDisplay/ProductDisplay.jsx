@@ -3,8 +3,6 @@ import './ProductDisplay.css';
 import star_icon from '../Assets/star_icon.png';
 import star_dull_icon from '../Assets/star_dull_icon.png';
 import { ShopContext } from '../../Context/ShopContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 
 const ProductDisplay = (props) => {
@@ -28,9 +26,18 @@ const ProductDisplay = (props) => {
             const selectedService = serviceSelection.find(item => item.productId === product.id);
             if (selectedService) {
                 addToCart(product.id);
+                toast.success("Successfully add item to cart",{
+                    style: { width: '30vh', height:'10px', position: 'absolute', marginRight:'30%'},
+                })
+                setTimeout(() => {
+                    window.location.replace('/cart');
+                }, 500);
             } else {
-                alert('Please select an option for the service.');
-            }
+                toast.error("Please select an option for the service.", {
+                    style: { width: '40vh' },
+                    autoClose: 500
+                });
+                }
         } else {
             toast.error("User must be logged in", {
                 style: { width: '250px' },
@@ -38,7 +45,7 @@ const ProductDisplay = (props) => {
 
             setTimeout(() => {
                 window.location.replace('/login');
-            }, 1000);
+            }, 500);
         }
     };
 
@@ -135,7 +142,6 @@ const ProductDisplay = (props) => {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-                className="custom-toast-container"
             />
         </div>
     );

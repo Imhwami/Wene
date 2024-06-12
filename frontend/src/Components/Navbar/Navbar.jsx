@@ -5,6 +5,8 @@ import cart_icon from '../Assets/cart_icon.png'
 import { Link } from 'react-router-dom'
 import { ShopContext } from '../../Context/ShopContext'
 import nav_dropdown from '../Assets/nav_icon.png'
+import { Tooltip } from 'react-tooltip';
+
 const Navbar = () => {
     const [menu, setMenu] = useState("shop");
     const { getTotalCartItems } = useContext(ShopContext);
@@ -34,7 +36,10 @@ const Navbar = () => {
                     : <Link to='/login'><button>Login</button></Link>
                 }
                 <Link to='/cart'><img src={cart_icon} alt="" /></Link>
-                <div className="nav-cart-count">{getTotalCartItems()}</div>
+                <div data-tooltip-id="tooltip" data-tooltip-content="Total of our product on your cart" className="nav-cart-count">
+                {getTotalCartItems()}
+            </div>
+            <Tooltip id="tooltip" />
             </div>
         </div>
     )
