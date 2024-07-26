@@ -24,7 +24,7 @@
     font-size: 20px;
 }
 
-.newsletter div {
+.inputemail {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -45,15 +45,48 @@
     font-size: 16px;
 }
 
-.newsletter div button {
+.buttonsubscribe {
     width: 210px;
     height: 70px;
     border-radius: 80px;
-    background: black;
+    background: #0CC0DF;
     color: white;
-    font-size: 16px;
+    font-size: 22px;
     cursor: pointer;
+    border: none;
+    font-weight: 500; 
 }
+
+.buttonsubscribe:hover {
+    background-color: #ff80ac; 
+    color: white;
+}
+
+.custom-toast {
+    background-color: #9cdea0 !important; /* Green background */
+    color: #20091e !important; /* Custom text color */
+    font-size: 16px !important; /* Custom font size */
+    padding: 15px !important; /* Custom padding */
+    border-radius: 8px !important; /* Rounded corners */
+}
+
+.custom-toast-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: '450px'
+}
+
+.custom-toast-icon {
+    margin-right: 10px;
+    font-size: 20px;
+    color: black;
+}
+
+.spinner-icon {
+    font-size: 2em; /* Adjust this value to make the spinner larger */
+}
+
 
 @media(max-width:1280px) {
     .newsletter {
@@ -75,11 +108,11 @@
         height: 62px;
     }
 
-    .newsletter div input {
+    .inputemail {
         width: 400px;
     }
 
-    .newsletter div button {
+    .buttonsubscribe {
         width: 160px;
         height: 60px;
     }
@@ -103,17 +136,18 @@
         height: 50px;
     }
 
-    .newsletter div input {
+    .inputemail {
         width: 300px;
         font-size: 14px;
     }
 
-    .newsletter div button {
+    .buttonsubscribe {
         width: 120px;
         height: 50px;
         font-size: 14px;
     }
 }
+
 @media(max-width:800px) {
     .newsletter {
         margin-bottom: 30px;
@@ -132,16 +166,17 @@
         width: 402px;
         height: 48px;
     }
-    .newsletter div input{
+    .inputemail{
         width: 200px;
         font-size: 13px;
     }
-    .newsletter div button{
+    .buttonsubscribe{
         width: 100px;
         height: 50px;
         font-size: 13px;
     }
 }
+
 @media(max-width:500px) {
     .newsletter {
         height: 25vh;
@@ -163,8 +198,8 @@
     .newsletter div{
         width: 290px;
     }
-    .newsletter div input{
-        width: 130px;
-        font-size: 13px;
+    .buttonsubscribe{
+        width: 300px;
+        font-size: 12px;
     }
 }
