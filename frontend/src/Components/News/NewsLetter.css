@@ -1,5 +1,5 @@
 .newsletter {
-    width: 65%;
+    width: 70%;
     height: 40vh;
     display: flex;
     flex-direction: column;
@@ -128,7 +128,7 @@
     }
 
     .newsletter p {
-        font-size: 14px;
+        font-size: 17px;
     }
 
     .newsletter div {
@@ -138,13 +138,16 @@
 
     .inputemail {
         width: 300px;
-        font-size: 14px;
+        font-size: 20px;
     }
 
     .buttonsubscribe {
         width: 120px;
         height: 50px;
         font-size: 14px;
+    }
+    .inputemail input{
+        font-size: 13px;
     }
 }
 
@@ -155,11 +158,12 @@
     }
 
     .newsletter h1 {
+        margin-top: 15px;
         font-size: 18px;
     }
 
     .newsletter p {
-        font-size: 12px;
+        font-size: 14px;
     }
     
     .newsletter div{
@@ -168,12 +172,15 @@
     }
     .inputemail{
         width: 200px;
-        font-size: 13px;
+        font-size: 14px;
     }
     .buttonsubscribe{
-        width: 100px;
+        width: 150px;
         height: 50px;
-        font-size: 13px;
+        font-size: 12px;
+    }
+    .inputemail input{
+        font-size: 12px;
     }
 }
 
@@ -200,6 +207,9 @@
     }
     .buttonsubscribe{
         width: 300px;
+        font-size: 12px;
+    }
+    .inputemail input{
         font-size: 12px;
     }
 }

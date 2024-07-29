@@ -214,6 +214,7 @@ const CartItems = () => {
                     <div className='container'>
                         <p><b>Note: </b></p>
                         {addresses.length > 0 ? (
+                            
                             <div key={addresses[addresses.length - 1]._id}>
                                 <p> &nbsp;{addresses[addresses.length - 1].address_note}</p>
                             </div>

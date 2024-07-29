@@ -1,78 +1,222 @@
-.add-address{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    font-size: 16px;
-    padding: 20px;
-    margin: 20px;
-    gap: 10px;
+.add-address {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  font-size: 16px;
+  padding: 20px;
+  margin: 20px;
+  gap: 10px;
 }
-.add-address-fields textarea{
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 20px;
-    margin-top: 5px;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 800px;
-    border-radius: 6px;
-    border: 1px solid #c3c3c3;
-    background: white;
-    font-family: 'Poppins';
+
+.add-address-fields textarea {
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 800px;
+  border-radius: 6px;
+  border: 1px solid #c3c3c3;
+  background: white;
+  font-family: 'Poppins';
 }
-.add-address-two-fields{
-    display: flex;
-    gap: 30px;
+
+.add-address-two-fields {
+  display: flex;
+  gap: 30px;
 }
-.add-address-sub-item input, select{
-    margin-top: 8px;
-    box-sizing: border-box;
-    height: 50px;
-    border-radius: 4px;
-    padding-left: 15px;
-    border: 1px solid #c3c3c3;
-    outline: none;
-    font-family: 'Poppins';
-    font-size: 14px;
-    width: 317.5px;
+
+.add-address-sub-item input,
+select {
+  margin-top: 8px;
+  box-sizing: border-box;
+  height: 50px;
+  border-radius: 4px;
+  padding-left: 15px;
+  border: 1px solid #c3c3c3;
+  outline: none;
+  font-family: 'Poppins';
+  font-size: 14px;
+  width: 317.5px;
 }
 
 .phone-number-container {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  width: 317.5px;
+  margin-right: 350px;
+  margin-top: 20px;
+}
+
+.phone-number-container input {
+  margin-top: 5px;
+  box-sizing: border-box;
+  height: 50px;
+  border-radius: 4px;
+  padding-left: 15px;
+  border: 1px solid #c3c3c3;
+  outline: none;
+  font-family: 'Poppins';
+  font-size: 14px;
+  width: 100%;
+  /* Full width within the container */
+}
+
+.button-sampingan {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px;
+  gap: 20px;
+}
+
+.cancel {
+  font-family: 'Poppins';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  width: 250px;
+  height: 50px;
+  outline: none;
+  border: 1px solid #7a7a7a;
+  border-radius: 75px;
+  margin-top: 30px;
+  background: white;
+  color: black;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 300px;
+}
+
+.submit {
+  font-family: 'Poppins';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  width: 250px;
+  height: 50px;
+  outline: none;
+  border: none;
+  border-radius: 75px;
+  margin-top: 30px;
+  background: #0CC0DF;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 300px;
+}
+
+.cancel:hover {
+  background-color: #c3c3c3;
+  color: white;
+  border: none;
+}
+
+.submit:hover {
+  background-color: #08b3d2;
+  color: white;
+}
+
+@media (max-width:1280px) {}
+
+@media (max-width:1024px) {
+  .add-address-fields textarea {
+    padding-left: 10px;
+    margin-bottom: 20px;
+  }
+  .add-address{
+    padding: 0%;
+    margin: 0%;
+    margin-top: 30px;
+  }
+  .add-address-two-fields {
+    gap: 30px;
+  }
+  .phone-number-container {
+    margin-left: 5px;
+  }
+  .add-address-sub-item input,
+  select {
+    margin: 0%;
+  }
+}
+
+@media (max-width:850px) {
+  .add-address-fields textarea {
+    padding-left: 10px;
+    margin-bottom: 20px;
+  }
+  .add-address{
+    padding: 0%;
+    margin: 0%;
+    margin-top: 30px;
+  }
+  .add-address-two-fields {
+    gap: 30px;
+  }
+  .phone-number-container {
+    margin-left: 5px;
+  }
+  .add-address-sub-item input,
+  select {
+    margin: 0%;
+  }
+}
+@media (max-width:540px) {
+  .add-address {
     display: flex;
     flex-direction: column;
-    align-content: flex-start; 
-    width: 317.5px;
-    margin-right: 350px;  
-    margin-top: 20px;
+    align-items: center;
+    width: 85%;
+    font-size: 14px;
+    padding: 20px;
+    margin: 20px;
+    gap: 10px;
   }
-  
-  .phone-number-container input {
-    margin-top: 5px;
-    box-sizing: border-box;
+
+  .add-address-two-fields {
+    display: flex;
+    gap: 10px;
+  }
+  .add-address-sub-item input,
+  select {
+    padding-top: 0px;
+  }
+
+  .phone-number-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+
+  .add-address-sub-item input,
+  select {
     height: 50px;
+    margin-bottom: 15px;
     border-radius: 4px;
     padding-left: 15px;
     border: 1px solid #c3c3c3;
     outline: none;
     font-family: 'Poppins';
     font-size: 14px;
-    width: 100%; /* Full width within the container */
+    width: 215px;
+    margin-top: 5px;
   }
-.button-sampingan{
-    display: flex;
-    justify-content: space-between;
-    margin: 15px;
-    gap: 20px;
-  }
-  
-  .cancel{
+  .cancel {
     font-family: 'Poppins';
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 15px;
-    width: 250px;
+    width: 100px;
     height: 50px;
     outline: none;
     border: 1px solid #7a7a7a;
@@ -80,18 +224,18 @@
     margin-top: 30px;
     background: white;
     color: black;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
-    margin-bottom: 300px;
+    margin-bottom: 30px;
   }
   
-  .submit{
+  .submit {
     font-family: 'Poppins';
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 15px;
-    width: 250px;
+    width: 100px;
     height: 50px;
     outline: none;
     border: none;
@@ -99,18 +243,173 @@
     margin-top: 30px;
     background: #0CC0DF;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
-    margin-bottom: 300px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width:345px) {
+  .add-address-fields{
+    padding: 15px;
+  }
+  .add-address {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    font-size: 14px;
+    padding: 10px;
+    margin: 10px;
+    gap: 10px;
+  }
+
+  .add-address-two-fields {
+    display: block;
+    gap: 30px;
+  }
+  .add-address-sub-item input,
+  select {
+    padding-top: 0px;
+  }
+
+  .phone-number-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 262px;
+    margin-right: 0px;
+    margin-top: 0px;
+  }
+
+  .add-address-sub-item input,
+  select {
+    height: 50px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    padding-left: 15px;
+    border: 1px solid #c3c3c3;
+    outline: none;
+    font-family: 'Poppins';
+    font-size: 14px;
+    width: 262px;
+  }
+  .cancel {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100px;
+    height: 50px;
+    outline: none;
+    border: 1px solid #7a7a7a;
+    border-radius: 75px;
+    margin-top: 30px;
+    background: white;
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 30px;
   }
   
-  .cancel:hover {
-    background-color: #c3c3c3; 
-    color: white;
+  .submit {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100px;
+    height: 50px;
+    outline: none;
     border: none;
-  }
-  .submit:hover {
-    background-color: #08b3d2; 
+    border-radius: 75px;
+    margin-top: 30px;
+    background: #0CC0DF;
     color: white;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width:500px) and (min-width:346px) {
+  .add-address {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    font-size: 14px;
+    padding: 20px;
+    margin: 20px;
+    gap: 10px;
+  }
+
+  .add-address-two-fields {
+    display:grid;
+    padding-left: 0%;
+  }
+  .add-address-sub-item input,
+  select {
+    padding-top: 0px;
+  }
+
+  .phone-number-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+    margin-right: 0px;
+    margin-top: 0px;
+  }
+
+  .add-address-sub-item input,
+  select {
+    height: 50px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    padding-left: 15px;
+    border: 1px solid #c3c3c3;
+    outline: none;
+    font-family: 'Poppins';
+    font-size: 14px;
+    width: 295px;
+  }
+  .cancel {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100px;
+    height: 50px;
+    outline: none;
+    border: 1px solid #7a7a7a;
+    border-radius: 75px;
+    margin-top: 30px;
+    background: white;
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 30px;
   }
   
+  .submit {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100px;
+    height: 50px;
+    outline: none;
+    border: none;
+    border-radius: 75px;
+    margin-top: 30px;
+    background: #0CC0DF;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+}

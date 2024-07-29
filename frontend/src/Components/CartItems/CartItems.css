@@ -84,7 +84,7 @@
   }
   .container {
     display: flex;
-    align-items: center; /* This will vertically center align the items */
+    align-items:start; /* This will vertically center align the items */
     margin-top: 10px;
 }
   
@@ -194,6 +194,10 @@
         margin-left: -20px;
         width: max-content;
     }
+    .container{
+        font-size: 13px;
+
+    }
 }
 @media (max-width:580px) {
     .cartitems-format-main{
@@ -203,5 +207,8 @@
     }
     .cartitems-format{
         display: grid;
+    }
+    .container{
+        font-size: 13px;
     }
 }
