@@ -121,9 +121,9 @@ select {
   color: white;
 }
 
-@media (max-width:1280px) {}
+/* @media (max-width:1280px) {}
 
-@media (max-width:1024px) {
+@media (width:1024px) {
   .add-address-fields textarea {
     padding-left: 10px;
     margin-bottom: 20px;
@@ -145,7 +145,7 @@ select {
   }
 }
 
-@media (max-width:850px) {
+@media (width:850px) {
   .add-address-fields textarea {
     padding-left: 10px;
     margin-bottom: 20px;
@@ -166,7 +166,7 @@ select {
     margin: 0%;
   }
 }
-@media (max-width:540px) {
+@media (width:540px) {
   .add-address {
     display: flex;
     flex-direction: column;
@@ -247,52 +247,57 @@ select {
     font-weight: 500;
     margin-bottom: 30px;
   }
-}
+} */
 
-@media (max-width:345px) {
-  .add-address-fields{
-    padding: 15px;
+/* Jiophone 2 (240) */
+@media (width:240px) {
+  .add-address-fields textarea{
+    padding: 5px;
+    font-size: 12px;
+    margin-bottom: 20px;
   }
   .add-address {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 90%;
+    width: 80%;
     font-size: 14px;
     padding: 10px;
-    margin: 10px;
+    margin: 12px;
     gap: 10px;
   }
-
   .add-address-two-fields {
     display: block;
-    gap: 30px;
-  }
-  .add-address-sub-item input,
-  select {
-    padding-top: 0px;
+    gap: 0px;
+    width: 176px;
   }
 
   .phone-number-container {
     display: flex;
     flex-direction: column;
     align-content: center;
-    width: 262px;
+    width: 176px;
     margin-right: 0px;
-    margin-top: 0px;
+    margin-top: -30px;
+  }
+  .phone-number-container input{
+    font-size: 12px;
+  }
+
+  .add-address-sub-item{
+    margin-top: -20px;
   }
 
   .add-address-sub-item input,
   select {
     height: 50px;
-    margin-bottom: 15px;
+    margin-bottom: 35px;
     border-radius: 4px;
-    padding-left: 15px;
     border: 1px solid #c3c3c3;
     outline: none;
     font-family: 'Poppins';
-    font-size: 14px;
-    width: 262px;
+    font-size: 12px;
+    width: 176px;
   }
   .cancel {
     font-family: 'Poppins';
@@ -300,7 +305,7 @@ select {
     justify-content: center;
     align-items: center;
     gap: 15px;
-    width: 100px;
+    width: 70px;
     height: 50px;
     outline: none;
     border: 1px solid #7a7a7a;
@@ -308,7 +313,7 @@ select {
     margin-top: 30px;
     background: white;
     color: black;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     margin-bottom: 30px;
   }
@@ -319,7 +324,7 @@ select {
     justify-content: center;
     align-items: center;
     gap: 15px;
-    width: 100px;
+    width: 70px;
     height: 50px;
     outline: none;
     border: none;
@@ -327,31 +332,61 @@ select {
     margin-top: 30px;
     background: #0CC0DF;
     color: white;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     margin-bottom: 30px;
   }
 }
 
-@media (max-width:500px) and (min-width:346px) {
+/* 
+- Galaxy S9+ (320)
+- Nokia Lumia 520 (320)
+- iPhone 4 (320)
+- iPhone 5/SE (320) */
+
+/* - Galaxy Z Fold 5 (344) */
+
+/* - Pixel 4 (353) */
+
+/* - BlackBerry Z30 (360)
+- Galaxy Note 3 (360)
+- Galaxy Note II (360)
+- Galaxy S III (360)
+- Galaxy S8 (360)
+- Galaxy S5 (360)
+- Microsoft Lumia 950 (360)
+- Moto G5S Plus (360)
+- Nexus 5 (360)
+- Samsung Galaxy S8+ (360) */
+
+/* - iPhone SE (375)
+- iPhone 6/7/8 (375)
+- iPhone X (375) */
+
+/* - LG Optimus L70 (384)
+- Nexus 4 (384) */
+
+/* - iPhone 12 Pro (390) */
+
+@media (max-width:390px) and (min-width:320px) {
+  .add-address-fields textarea{
+    padding: 15px;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
   .add-address {
+    margin-right: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 80%;
     font-size: 14px;
-    padding: 20px;
-    margin: 20px;
-    gap: 10px;
+    padding: 10px;
   }
-
   .add-address-two-fields {
-    display:grid;
-    padding-left: 0%;
-  }
-  .add-address-sub-item input,
-  select {
-    padding-top: 0px;
+    display: block;
+    gap: 0px;
+    width: 100%;
   }
 
   .phone-number-container {
@@ -361,19 +396,26 @@ select {
     width: 100%;
     margin-right: 0px;
     margin-top: 0px;
+    margin-top: -10px;
+  }
+  .phone-number-container input{
+    font-size: 12px;
   }
 
+  .add-address-sub-item{
+    margin-top:-5px;
+  }
   .add-address-sub-item input,
   select {
     height: 50px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     border-radius: 4px;
-    padding-left: 15px;
     border: 1px solid #c3c3c3;
     outline: none;
     font-family: 'Poppins';
-    font-size: 14px;
-    width: 295px;
+    font-size: 12px;
+    width: 100%;
+  
   }
   .cancel {
     font-family: 'Poppins';
@@ -381,6 +423,469 @@ select {
     justify-content: center;
     align-items: center;
     gap: 15px;
+    width: 70px;
+    height: 50px;
+    outline: none;
+    border: 1px solid #7a7a7a;
+    border-radius: 75px;
+    margin-top: 30px;
+    background: white;
+    color: black;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+  
+  .submit {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 70px;
+    height: 50px;
+    outline: none;
+    border: none;
+    border-radius: 75px;
+    margin-top: 30px;
+    background: #0CC0DF;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+}
+
+/* - Pixel 3 (393)
+- Pixel 3 XL (393) */
+@media (max-width:393px) and (min-width:393px) {
+  .add-address-fields textarea{
+    padding: 15px;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  .add-address {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 84%;
+    font-size: 14px;
+    padding: 10px;
+  }
+  .add-address-two-fields {
+    display: block;
+    gap: 0px;
+    width: 100%;
+  }
+
+  .phone-number-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-top: -10px;
+  }
+  .phone-number-container input{
+    font-size: 12px;
+  }
+
+  .add-address-sub-item{
+    margin-top:-5px;
+  }
+  .add-address-sub-item input,
+  select {
+    height: 50px;
+    margin-bottom: 25px;
+    border-radius: 4px;
+    border: 1px solid #c3c3c3;
+    outline: none;
+    font-family: 'Poppins';
+    font-size: 12px;
+    width: 100%;
+  
+  }
+  .cancel {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 70px;
+    height: 50px;
+    outline: none;
+    border: 1px solid #7a7a7a;
+    border-radius: 75px;
+    margin-top: 30px;
+    background: white;
+    color: black;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+  
+  .submit {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 70px;
+    height: 50px;
+    outline: none;
+    border: none;
+    border-radius: 75px;
+    margin-top: 30px;
+    background: #0CC0DF;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+}
+
+
+/* - Moto G4 Power (412)
+- Nexus 5X (412)
+- Nexus 6 (412)
+- Nexus 6P (412)
+- Pixel 2 (411)
+- Pixel 2 XL (411)
+- Pixel 7 (412)
+- Samsung Galaxy S20 Ultra (412)
+- Nest Hub Max (412)
+- Samsung Galaxy a51/71 (412)
+- Facebook on Android (412)
+- iPhone XR (414)
+- iPhone 6+/7+/8+ (414) */
+
+/* - iPhone 14 Pro Max (430) */
+
+@media (max-width:430px) and (min-width:411px){
+  .add-address-fields textarea{
+    padding: 15px;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  .add-address {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 85%;
+    font-size: 14px;
+    padding: 10px;
+  }
+  .add-address-two-fields {
+    display: block;
+    gap: 0px;
+    width: 100%;
+  }
+
+  .phone-number-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-top: -10px;
+  }
+  .phone-number-container input{
+    font-size: 12px;
+  }
+
+  .add-address-sub-item{
+    margin-top:-5px;
+  }
+  .add-address-sub-item input,
+  select {
+    height: 50px;
+    margin-bottom: 25px;
+    border-radius: 4px;
+    border: 1px solid #c3c3c3;
+    outline: none;
+    font-family: 'Poppins';
+    font-size: 12px;
+    width: 100%;
+  
+  }
+  .cancel {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 70px;
+    height: 50px;
+    outline: none;
+    border: 1px solid #7a7a7a;
+    border-radius: 25px;
+    margin-top: 30px;
+    background: white;
+    color: black;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+  
+  .submit {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 70px;
+    height: 50px;
+    outline: none;
+    border: none;
+    border-radius: 25px;
+    margin-top: 30px;
+    background: #0CC0DF;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+}
+
+/* - Nokia N9 (480) */
+
+@media (max-width:480px) and (min-width:480px){
+  .add-address-fields textarea{
+    padding: 15px;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  .add-address {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 87%;
+    font-size: 14px;
+    padding: 10px;
+  }
+  .add-address-two-fields {
+    display: block;
+    gap: 0px;
+    width: 100%;
+  }
+
+  .phone-number-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-top: -10px;
+  }
+  .phone-number-container input{
+    font-size: 12px;
+  }
+
+  .add-address-sub-item{
+    margin-top:-5px;
+  }
+  .add-address-sub-item input,
+  select {
+    height: 50px;
+    margin-bottom: 25px;
+    border-radius: 4px;
+    border: 1px solid #c3c3c3;
+    outline: none;
+    font-family: 'Poppins';
+    font-size: 12px;
+    width: 100%;
+  
+  }
+  .cancel {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 70px;
+    height: 50px;
+    outline: none;
+    border: 1px solid #7a7a7a;
+    border-radius: 75px;
+    margin-top: 30px;
+    background: white;
+    color: black;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+  
+  .submit {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 70px;
+    height: 50px;
+    outline: none;
+    border: none;
+    border-radius: 75px;
+    margin-top: 30px;
+    background: #0CC0DF;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+}
+
+/* - Surface Duo (540) */
+
+@media (max-width:540px) and (min-width:540px){
+  .add-address-fields textarea{
+    padding: 15px;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  .add-address {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 88%;
+    font-size: 14px;
+    padding: 10px;
+  }
+  .add-address-two-fields {
+    display: block;
+    gap: 0px;
+    width: 100%;
+  }
+
+  .phone-number-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-top: -10px;
+  }
+  .phone-number-container input{
+    font-size: 12px;
+  }
+
+  .add-address-sub-item{
+    margin-top:-5px;
+  }
+  .add-address-sub-item input,
+  select {
+    height: 50px;
+    margin-bottom: 25px;
+    border-radius: 4px;
+    border: 1px solid #c3c3c3;
+    outline: none;
+    font-family: 'Poppins';
+    font-size: 12px;
+    width: 100%;
+  
+  }
+  .cancel {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 70px;
+    height: 50px;
+    outline: none;
+    border: 1px solid #7a7a7a;
+    border-radius: 75px;
+    margin-top: 30px;
+    background: white;
+    color: black;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+  
+  .submit {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 70px;
+    height: 50px;
+    outline: none;
+    border: none;
+    border-radius: 75px;
+    margin-top: 30px;
+    background: #0CC0DF;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+}
+
+/* - Blackberry Playbook (600)
+- Nexus 7 (600) */
+
+/* - Microsoft Lumia 550 (640) */
+
+@media (max-width:640px) and (min-width:600px){
+  .add-address-fields textarea{
+    padding: 15px;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .add-address {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    font-size: 18px;
+    padding: 10px;
+  }
+  .add-address-two-fields {
+    display: block;
+    gap: 0px;
+    width: 100%;
+  }
+
+  .phone-number-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-top: -10px;
+  }
+  .phone-number-container input{
+    font-size: 15px;
+  }
+
+  .add-address-sub-item{
+    margin-top:-5px;
+  }
+  .add-address-sub-item input,
+  select {
+    height: 50px;
+    margin-bottom: 25px;
+    border-radius: 4px;
+    border: 1px solid #c3c3c3;
+    outline: none;
+    font-family: 'Poppins';
+    font-size: 15px;
+    width: 100%;
+  
+  }
+  .cancel {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 40px;
     width: 100px;
     height: 50px;
     outline: none;
@@ -389,7 +894,7 @@ select {
     margin-top: 30px;
     background: white;
     color: black;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     margin-bottom: 30px;
   }
@@ -408,8 +913,436 @@ select {
     margin-top: 30px;
     background: #0CC0DF;
     color: white;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     margin-bottom: 30px;
   }
 }
+
+/* - Galaxy Tab S4 (720) */
+@media (max-width:720px) and (min-width:711px){
+  .add-address-fields textarea{
+    padding: 15px;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .add-address {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    font-size: 23px;
+    padding: 10px;
+  }
+  .add-address-two-fields {
+    display: block;
+    gap: 0px;
+    width: 100%;
+  }
+
+  .phone-number-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-top: -10px;
+  }
+  .phone-number-container input{
+    font-size: 20px;
+  }
+
+  .add-address-sub-item{
+    margin-top:-5px;
+  }
+  .add-address-sub-item input,
+  select {
+    height: 50px;
+    margin-bottom: 25px;
+    border-radius: 4px;
+    border: 1px solid #c3c3c3;
+    outline: none;
+    font-family: 'Poppins';
+    font-size: 20px;
+    width: 100%;
+  
+  }
+  .cancel {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+    width: 120px;
+    height: 50px;
+    outline: none;
+    border: 1px solid #7a7a7a;
+    border-radius: 75px;
+    margin-top: 30px;
+    background: white;
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+  
+  .submit {
+    font-family: 'Poppins';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 120px;
+    height: 50px;
+    outline: none;
+    border: none;
+    border-radius: 75px;
+    margin-top: 30px;
+    background: #0CC0DF;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+}
+/* - iPad Mini (768)
+- iPad (768) */
+
+/* - Kindle Fire HDX (800)
+- Nexus 10 (800) */
+@media (max-width:800px) and (min-width:800px){
+ .add-address{
+  width: 90%;
+  font-size: 24px;
+ }
+ .add-address-fields{
+  margin-bottom: 20px;
+ }
+ .add-address-fields textarea{
+  font-size: 20px;
+  padding-left:20px;
+  margin-bottom:20px ;
+ }
+
+ .add-address-sub-item{
+  margin-top: -20px;
+ }
+
+ .add-address-sub-item input, select{
+  font-size: 20px;
+  width: 335px;
+ }
+ .phone-number-container{
+  width: 100%;
+  margin-right: 0px;
+ }
+
+ .phone-number-container input{
+  font-size: 20px;
+ }
+
+ .submit{
+  font-size: 23px;
+  height: 65px;
+  width: 200px;
+ }
+
+ .cancel{
+  font-size: 23px;
+  height: 65px;
+  width: 200px;
+ }
+
+}
+
+@media (max-width:768px) and (min-width:768px){
+  .add-address{
+   width: 90%;
+   font-size: 24px;
+  }
+  .add-address-fields{
+   margin-bottom: 20px;
+  }
+  .add-address-fields textarea{
+   font-size: 20px;
+   padding-left:20px;
+   margin-bottom:20px ;
+  }
+ 
+  .add-address-sub-item{
+   margin-top: -20px;
+  }
+ 
+  .add-address-sub-item input, select{
+   font-size: 20px;
+   width: 325px;
+  }
+  .phone-number-container{
+   width: 100%;
+   margin-right: 0px;
+  }
+ 
+  .phone-number-container input{
+   font-size: 20px;
+  }
+ 
+  .submit{
+   font-size: 23px;
+   height: 65px;
+   width: 200px;
+  }
+ 
+  .cancel{
+   font-size: 23px;
+   height: 65px;
+   width: 200px;
+  }
+ 
+ }
+
+/* - iPad Air (820) */
+@media (max-width:820px) and (min-width:820px){
+  .add-address{
+   width: 90%;
+   font-size: 24px;
+  }
+  .add-address-fields{
+   margin-bottom: 20px;
+  }
+  .add-address-fields textarea{
+   font-size: 20px;
+   padding-left:20px;
+   margin-bottom:20px ;
+  }
+ 
+  .add-address-sub-item{
+   margin-top: -20px;
+  }
+
+  .add-address-sub-item input, select{
+   font-size: 20px;
+   width: 345px;
+  }
+  .phone-number-container{
+   width: 100%;
+   margin-right: 0px;
+  }
+ 
+  .phone-number-container input{
+   font-size: 20px;
+  }
+ 
+  .submit{
+   font-size: 23px;
+   height: 65px;
+   width: 200px;
+  }
+ 
+  .cancel{
+   font-size: 23px;
+   height: 65px;
+   width: 200px;
+  } 
+ }
+
+/* 
+ - Asus Zenbook Fold (853) */
+
+ @media (max-width:853px) and (min-width:853px){
+  .add-address{
+   width: 90%;
+   font-size: 24px;
+  }
+  .add-address-fields{
+   margin-bottom: 20px;
+  }
+  .add-address-fields textarea{
+   font-size: 20px;
+   padding-left:20px;
+   margin-bottom:20px ;
+  }
+ 
+  .add-address-sub-item{
+   margin-top: -20px;
+  }
+
+  .add-address-sub-item input, select{
+   font-size: 20px;
+   width: 360px;
+  }
+  .phone-number-container{
+   width: 100%;
+   margin-right: 0px;
+  }
+ 
+  .phone-number-container input{
+   font-size: 20px;
+  }
+ 
+  .submit{
+   font-size: 23px;
+   height: 65px;
+   width: 200px;
+  }
+ 
+  .cancel{
+   font-size: 23px;
+   height: 65px;
+   width: 200px;
+  }
+ 
+ }
+
+ /* - Surface Pro 7 (912) */
+ @media (max-width:912px) and (min-width:912px){
+  .add-address{
+   width: 90%;
+   font-size: 26px;
+  }
+  .add-address-fields{
+   margin-bottom: 20px;
+  }
+  .add-address-fields textarea{
+   font-size: 22px;
+   padding-left:20px;
+   margin-bottom:20px ;
+  }
+ 
+  .add-address-sub-item{
+   margin-top: -20px;
+  }
+
+  .add-address-sub-item input, select{
+    font-size: 22px;
+    width: 386px;
+  }
+  .phone-number-container{
+   width: 100%;
+   margin-right: 0px;
+  }
+ 
+  .phone-number-container input{
+    font-size: 22px;
+  }
+ 
+  .submit{
+   font-size: 24px;
+   height: 65px;
+   width: 200px;
+  }
+ 
+  .cancel{
+   font-size: 24px;
+   height: 65px;
+   width: 200px;
+  }
+ }
+/* 
+ - iPad Pro (1024)
+- Nest Hub (1024) */
+
+ @media (max-width:1024px) and (min-width:1024px){
+  .add-address{
+   width: 92%;
+   font-size: 28px;
+   margin-top: 70px;
+  }
+  .add-address-fields{
+   margin-bottom: 20px;
+  }
+  .add-address-fields textarea{
+   font-size: 24px;
+   padding-left:20px;
+   margin-bottom:20px ;
+  }
+ 
+  .add-address-sub-item{
+   margin-top: -30px;
+  }
+
+  .add-address-sub-item input, select{
+    font-size: 24px;
+    width: 386px;
+  }
+  .phone-number-container{
+   width: 87%;
+   margin-right: 0px;
+  }
+ 
+  .phone-number-container input{
+    font-size: 24px;
+  }
+ 
+  .submit{
+   font-size: 26px;
+   height: 65px;
+   width: 200px;
+  }
+ 
+  .cancel{
+   font-size: 26px;
+   height: 65px;
+   width: 200px;
+  }
+ }
+
+/* 
+ - Nest Hub Max (1280) */
+
+ @media (max-width:1280px) and (min-width:1280px){
+  .add-address{
+   width:100%;
+   margin-left: -20px;
+   font-size: 38px;
+   margin-top: 70px;
+  }
+  .add-address-fields{
+   margin-bottom: 20px;
+  }
+  .add-address-fields textarea{
+   font-size: 30px;
+   padding-left:20px;
+   margin-bottom:20px ;
+  }
+ 
+  .add-address-sub-item{
+   margin-top: -30px;
+  }
+
+  .add-address-sub-item input, select{
+    font-size: 30px;
+    width: 386px;
+    height: 80px;
+  }
+  .phone-number-container{
+   display: flex;
+   width: 800px;
+   margin-right: 0px;
+  }
+ 
+  .phone-number-container input{
+    font-size: 30px;
+    padding-top:39px;
+    padding-bottom:39px;
+  }
+ 
+  .submit{
+   font-size: 32px;
+   height: 80px;
+   width: 220px;
+  }
+ 
+  .cancel{
+   font-size: 32px;
+   height: 80px;
+   margin-right: 30px;
+   width: 220px;
+  }
+ }
+ 
+
+ 
+ 
+
+ 
