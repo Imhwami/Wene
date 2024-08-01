@@ -18,6 +18,17 @@ const Address = () => {
     setAddressDetails({ ...addressDetails, [e.target.name]: e.target.value });
   };
 
+  const cancel = async () =>{
+    const userId = localStorage.getItem('userId'); // Retrieve the userId from local storage
+    if (!userId) {
+      alert("User ID not found. Please log in again.");
+      return;
+    }
+    else{
+      window.location.replace("/cart");
+    }
+  }
+
   const Add_address = async () => {
     setFormSubmitted(true); // Set formSubmitted to true when submit button is clicked
 
@@ -111,11 +122,11 @@ const Address = () => {
         <div className="add-address-fields">
           <p>Address details<span style={{color: 'red'}}> *</span></p>
           <textarea type='text' rows="3" cols="100" style={{ resize: 'none' }} maxLength="1000" name='address_details' placeholder='Input the address details (Street Name, RT/RW, Kelurahan, Kecamatan)' onChange={changeHandler} required></textarea>
-          {formSubmitted && addressDetails.address_details === "" && <p style={{ color: 'red' }}>The field is required</p>}
+          {formSubmitted && addressDetails.address_details === ""}
           <br/>
           <p>Address Note <span style={{color: 'red'}}> *</span></p>
           <textarea type='text' rows="3" cols="100" style={{ resize: 'none' }} maxLength="500" name='address_note' placeholder='Input the address note (Put the package to ...)' onChange={changeHandler} required></textarea>
-          {formSubmitted && addressDetails.address_note === "" && <p style={{ color: 'red' }}>The field is required</p>}
+          {formSubmitted && addressDetails.address_note === ""}
           <br/>
         </div>
         <div className="add-address-two-fields">
@@ -129,7 +140,7 @@ const Address = () => {
                 </option>
               ))}
             </select>
-            {formSubmitted && addressDetails.city === "" && <p style={{ color: 'red' }}>The field is required</p>}
+            {formSubmitted && addressDetails.city === ""}
           </div>
           <div className="add-address-sub-item">
             <p>Postal Code <span style={{color: 'red'}}> *</span></p>
@@ -137,7 +148,7 @@ const Address = () => {
             {!isPostalCodeValid && inputValue !== '' && (
               <div style={{ color: 'red' }}>Please enter a valid 5-digit number.</div>
             )}
-            {formSubmitted && addressDetails.postal_code === "" && <p style={{ color: 'red' }}>The field is required</p>}
+            {formSubmitted && addressDetails.postal_code === ""}
           </div>
         </div>
         <div className="phone-number-container">
@@ -154,16 +165,17 @@ const Address = () => {
           {!isPhoneNumberValid && inputPhoneNumberValue !== '' && (
             <div style={{ color: 'red' }}>Please enter a valid 10-13 digit number.</div>
           )}
-          {formSubmitted && addressDetails.phone_number === "" && <p style={{ color: 'red' }}>The field is required</p>}
+          {formSubmitted && addressDetails.phone_number === ""}
         </div>
         <div className='button-sampingan'>
-          <Link to={'/cart'} style={{ textDecoration: "none" }}>
-            <button className='cancel'>Cancel</button>
-          </Link>
+          {/* <Link to={'/cart'} style={{ textDecoration: "none" }}> */}
+            <button className='cancel' onClick={()=>{cancel()}}>Cancel</button>
+          {/* </Link> */}
           <button className='submit' onClick={() => { Add_address() }}>Submit</button>
         </div>
         {formSubmitted && !validateForm() && (
-          <p style={{ color: 'red' }}>Please fill out all required fields.</p>
+          <p style={{ color: 'red', marginBottom:'30%' }}>Please fill out all required fields.</p>
+        
         )}
       </div>
     </div>

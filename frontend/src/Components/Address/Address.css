@@ -88,7 +88,6 @@ select {
   color: black;
   font-size: 16px;
   font-weight: 500;
-  margin-bottom: 300px;
 }
 
 .submit {
@@ -107,7 +106,6 @@ select {
   color: white;
   font-size: 16px;
   font-weight: 500;
-  margin-bottom: 300px;
 }
 
 .cancel:hover {
@@ -121,140 +119,12 @@ select {
   color: white;
 }
 
-/* @media (max-width:1280px) {}
-
-@media (width:1024px) {
-  .add-address-fields textarea {
-    padding-left: 10px;
-    margin-bottom: 20px;
-  }
-  .add-address{
-    padding: 0%;
-    margin: 0%;
-    margin-top: 30px;
-  }
-  .add-address-two-fields {
-    gap: 30px;
-  }
-  .phone-number-container {
-    margin-left: 5px;
-  }
-  .add-address-sub-item input,
-  select {
-    margin: 0%;
-  }
-}
-
-@media (width:850px) {
-  .add-address-fields textarea {
-    padding-left: 10px;
-    margin-bottom: 20px;
-  }
-  .add-address{
-    padding: 0%;
-    margin: 0%;
-    margin-top: 30px;
-  }
-  .add-address-two-fields {
-    gap: 30px;
-  }
-  .phone-number-container {
-    margin-left: 5px;
-  }
-  .add-address-sub-item input,
-  select {
-    margin: 0%;
-  }
-}
-@media (width:540px) {
-  .add-address {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 85%;
-    font-size: 14px;
-    padding: 20px;
-    margin: 20px;
-    gap: 10px;
-  }
-
-  .add-address-two-fields {
-    display: flex;
-    gap: 10px;
-  }
-  .add-address-sub-item input,
-  select {
-    padding-top: 0px;
-  }
-
-  .phone-number-container {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    width: 100%;
-    margin-right: 0px;
-    margin-top: 0px;
-    margin-left: 0px;
-  }
-
-  .add-address-sub-item input,
-  select {
-    height: 50px;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    padding-left: 15px;
-    border: 1px solid #c3c3c3;
-    outline: none;
-    font-family: 'Poppins';
-    font-size: 14px;
-    width: 215px;
-    margin-top: 5px;
-  }
-  .cancel {
-    font-family: 'Poppins';
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    width: 100px;
-    height: 50px;
-    outline: none;
-    border: 1px solid #7a7a7a;
-    border-radius: 75px;
-    margin-top: 30px;
-    background: white;
-    color: black;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 30px;
-  }
-  
-  .submit {
-    font-family: 'Poppins';
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    width: 100px;
-    height: 50px;
-    outline: none;
-    border: none;
-    border-radius: 75px;
-    margin-top: 30px;
-    background: #0CC0DF;
-    color: white;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 30px;
-  }
-} */
-
 /* Jiophone 2 (240) */
 @media (width:240px) {
   .add-address-fields textarea{
     padding: 5px;
     font-size: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   .add-address {
     display: flex;
@@ -278,20 +148,20 @@ select {
     align-content: center;
     width: 176px;
     margin-right: 0px;
-    margin-top: -30px;
+    margin-top: -20px;
   }
   .phone-number-container input{
     font-size: 12px;
   }
 
   .add-address-sub-item{
-    margin-top: -20px;
+    margin-top: -10px;
   }
 
   .add-address-sub-item input,
   select {
     height: 50px;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
     border-radius: 4px;
     border: 1px solid #c3c3c3;
     outline: none;
@@ -315,7 +185,7 @@ select {
     color: black;
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
   }
   
   .submit {
@@ -334,7 +204,7 @@ select {
     color: white;
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
   }
 }
 
@@ -433,7 +303,6 @@ select {
     color: black;
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
   
   .submit {
@@ -452,7 +321,6 @@ select {
     color: white;
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
 }
 
@@ -522,7 +390,6 @@ select {
     color: black;
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
   
   .submit {
@@ -541,7 +408,6 @@ select {
     color: white;
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
 }
 
@@ -626,7 +492,6 @@ select {
     color: black;
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
   
   .submit {
@@ -645,7 +510,6 @@ select {
     color: white;
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
 }
 
@@ -715,7 +579,6 @@ select {
     color: black;
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
   
   .submit {
@@ -734,7 +597,6 @@ select {
     color: white;
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
 }
 
@@ -804,7 +666,6 @@ select {
     color: black;
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
   
   .submit {
@@ -823,7 +684,6 @@ select {
     color: white;
     font-size: 12px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
 }
 
@@ -896,7 +756,6 @@ select {
     color: black;
     font-size: 15px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
   
   .submit {
@@ -915,7 +774,6 @@ select {
     color: white;
     font-size: 15px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
 }
 
@@ -984,7 +842,6 @@ select {
     color: black;
     font-size: 20px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
   
   .submit {
@@ -1003,7 +860,6 @@ select {
     color: white;
     font-size: 20px;
     font-weight: 500;
-    margin-bottom: 30px;
   }
 }
 /* - iPad Mini (768)
