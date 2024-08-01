@@ -30,7 +30,6 @@ const ProductDisplay = (props) => {
                     style: { width: '30vh', height:'10px', position: 'absolute', marginRight:'30%'},
                 })
                 setTimeout(() => {
-                    window.location.replace('/cart');
                 }, 500);
             } else {
                 toast.error("Please select an option for the service.", {
