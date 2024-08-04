@@ -1,13 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import './Popular.css'
 import Item from '../Items/Item'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Popular = () => {
-  const [popularProducts, setPopularProducts]=useState([]);
-  useEffect(()=>{
-    fetch('http://localhost:4000/popularinwomen')
-    .then((response)=>response.json())
-    .then((data)=>setPopularProducts(data));
-  },[])
+  const [popularProducts, setPopularProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchPopularProducts = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/popularinwomen');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setPopularProducts(data);
+      } catch (error) {
+        toast.error(`Failed to fetch popular products`);
+      }
+    };
+
+    fetchPopularProducts();
+  }, []);
+
   return (
     <div className='popular'>
       <h1>POPULAR IN HAIR</h1>

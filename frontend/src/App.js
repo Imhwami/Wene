@@ -13,9 +13,34 @@ import nails_banner from './Components/Assets/banner_3.png'
 import eyebrow_banner from './Components/Assets/banner_4.png'
 import Successfull from './Components/Successfull/Successfull.jsx';
 import Address from './Components/Address/Address.jsx';
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  useEffect(() => {
+    const checkDbStatus = async () => {
+        try {
+            const response = await fetch('http://localhost:4000/db-status');
+            const data = await response.json();
+        } catch (error) {
+            toast.error("Failed to connect to MongoDB", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    };
+
+    checkDbStatus();
+}, []);
   return (
+    
     <div>
       <BrowserRouter>
       {/* <Navbar/> */}
@@ -35,6 +60,7 @@ function App() {
       </Routes>
       {/* <Footer/> */}
       </BrowserRouter>
+      <ToastContainer />
     </div>
   );
 }

@@ -1,14 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import './NewCollections.css'
 import Item from '../Items/Item'
+import 'react-toastify/dist/ReactToastify.css';
+import './NewCollections.css';
+import { toast } from 'react-toastify';
 
 const NewCollections = () => {
   const [new_collection, setNew_collection] = useState([]);
-  useEffect(()=>{
-    fetch('http://localhost:4000/newcollections')
-    .then((response)=>response.json())
-    .then((data)=>setNew_collection(data));
-  },[])
+
+  useEffect(() => {
+    const fetchNewCollections = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/newcollections');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setNew_collection(data);
+      } catch (error) {
+        toast.error(`Failed to fetch new collections`);
+      }
+    };
+
+    fetchNewCollections();
+  }, []);
   return (
     <div className='new-collections'>
       <h1>NEW COLLECTIONS</h1>

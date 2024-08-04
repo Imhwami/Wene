@@ -185,6 +185,9 @@
         gap: 20px;
         grid-template-columns: 0.5fr 1fr 0.5fr 0.6fr 0.5fr 0.4fr;
     }
+    .cartitems-total{
+        margin-right: 0px;
+    }
 }
 @media (max-width:621px) {
     .cartsitems-promobox{
@@ -198,13 +201,12 @@
     }
     .container{
         font-size: 13px;
-
     }
 }
 @media (max-width:580px) {
     .cartitems-format-main{
         display: none;
-        grid-template-columns: 0.5fr 3fr 0.5fr;
+        grid-template-columns: 1fr 4fr 1fr;
         gap: 10px;
     }
     .cartitems-format{
@@ -218,16 +220,16 @@
 @media (max-width: 768px) {
     .cartitems{
         margin: 60px auto;
-        padding: 0 20px; /* Tambahkan padding untuk memberikan ruang di sisi */
+        padding: 0 20px; 
     }
     .cartitems-format-main{
-        font-size: 16px; /* Sesuaikan ukuran font */
-        gap: 10px; /* Sesuaikan gap untuk tampilan lebih kecil */
-        grid-template-columns: 0.5fr 1.5fr 0.5fr 0.5fr 0.5fr 0.5fr; /* Sesuaikan lebar kolom */
+        font-size: 16px; 
+        gap: 10px; 
+        grid-template-columns: 0.5fr 1.5fr 0.5fr 0.5fr 0.5fr 0.5fr; 
     }
     .cartitems-format{
-        grid-template-columns: 1fr 2fr 1fr 1fr; /* Sesuaikan lebar kolom untuk tampilan lebih kecil */
-        gap: 10px; /* Sesuaikan gap untuk tampilan lebih kecil */
+        grid-template-columns: 1fr 2fr 1fr 1fr; 
+        gap: 10px; 
     }
     .cartitems-quantity{
         width: 50px;
@@ -237,17 +239,17 @@
 
 @media (max-width: 480px) {
     .cartitems{
-        margin: 40px auto;
-        padding: 0 15px; /* Tambahkan padding untuk memberikan ruang di sisi */
+        margin: 10px;
+        padding: 10px; 
     }
     .cartitems-format-main{
-        font-size: 14px; /* Sesuaikan ukuran font */
-        gap: 5px; /* Sesuaikan gap untuk tampilan lebih kecil */
-        grid-template-columns: 1fr 1fr 1fr 1fr; /* Sesuaikan lebar kolom */
+        font-size: 14px; 
+        gap: 5px; 
+        grid-template-columns: 1fr 2fr 1fr 1fr;
     }
     .cartitems-format{
-        grid-template-columns: 1fr 2fr 1fr; /* Sesuaikan lebar kolom untuk tampilan lebih kecil */
-        gap: 5px; /* Sesuaikan gap untuk tampilan lebih kecil */
+        grid-template-columns: 1fr 2fr 1fr; 
+        gap: 5px; 
     }
     .cartitems-quantity{
         width: 40px;

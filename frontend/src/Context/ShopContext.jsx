@@ -1,7 +1,8 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-export const ShopContext = createContext(null);
+import 'react-toastify/dist/ReactToastify.css';
 
+export const ShopContext = createContext(null);
 
 const getDefaultCart = () => {
     let cart = {};
@@ -17,50 +18,78 @@ const ShopContextProvider = (props) => {
     const [serviceSelection, setServiceSelection] = useState(() => JSON.parse(localStorage.getItem('serviceSelection')) || []);
 
     useEffect(() => {
-        fetch('http://localhost:4000/allproducts')
-            .then((response) => response.json())
-            .then((data) => setAll_Product(data));
+        const fetchAllProducts = async () => {
+            try {
+                const response = await fetch('http://localhost:4000/allproducts');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch all products');
+                }
+                const data = await response.json();
+                setAll_Product(data);
+            } catch (error) {
+                toast.error(`Error fetching all products`);
+            }
+        };
 
-        if (localStorage.getItem('auth-token')) {
-            fetch('http://localhost:4000/getcart', {
-                method: "POST",
-                headers: {
-                    Accept: 'application/form-data',
-                    'auth-token': `${localStorage.getItem('auth-token')}`,
-                    'Content-Type': 'application/json',
-                },
-                body: "",
-            }).then((response) => response.json())
-                .then((data) => setCartItems(data));
-        }
+        fetchAllProducts();
+
+        const fetchCartItems = async () => {
+            if (localStorage.getItem('auth-token')) {
+                try {
+                    const response = await fetch('http://localhost:4000/getcart', {
+                        method: "POST",
+                        headers: {
+                            Accept: 'application/form-data',
+                            'auth-token': `${localStorage.getItem('auth-token')}`,
+                            'Content-Type': 'application/json',
+                        },
+                        body: "",
+                    });
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch cart items');
+                    }
+                    const data = await response.json();
+                    setCartItems(data);
+                } catch (error) {
+                    toast.error(`Error fetching cart items`);
+                }
+            }
+        };
+
+        fetchCartItems();
     }, []);
 
     useEffect(() => {
         localStorage.setItem('serviceSelection', JSON.stringify(serviceSelection));
     }, [serviceSelection]);
 
-    const addToCart = (itemId) => {
+    const addToCart = async (itemId) => {
         const id = Number(itemId); // Ensure itemId is a number
         setCartItems((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
     
         if (localStorage.getItem('auth-token')) {
-            fetch('http://localhost:4000/addtocart', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/form-data',
-                    'auth-token': `${localStorage.getItem('auth-token')}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ "itemId": id }) // Ensure itemId is passed as a number
-            })
-            .then((response) => response.json())
-            .then((data) => console.log(data));
+            try {
+                const response = await fetch('http://localhost:4000/addtocart', {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/form-data',
+                        'auth-token': `${localStorage.getItem('auth-token')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ "itemId": id }) // Ensure itemId is passed as a number
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to add item to cart');
+                }
+                const data = await response.json();
+                console.log(data);
+            } catch (error) {
+                toast.error(`Error adding item to cart: ${error.message}`);
+            }
         }
     };
-    
 
     const removeFromCart = async (itemId) => {
-        console.log("removeFromCart")
         const id = Number(itemId); // Ensure itemId is a number
         setCartItems((prev) => ({ ...prev, [id]: (prev[id] || 1) - 1 }));
     
@@ -75,14 +104,15 @@ const ShopContextProvider = (props) => {
                     },
                     body: JSON.stringify({ "itemId": id }) // Ensure itemId is passed as a number
                 });
-                const data = await response.json();
-                if (response.ok) {
-                    return { success: true, message: data.message };
-                } else {
-                    throw new Error(data.message || 'Failed to remove item');
+                if (!response.ok) {
+                    throw new Error('Failed to remove item from cart');
                 }
+                const data = await response.json();
+                console.log(data);
+                return { success: true, message: data.message };
             } catch (error) {
                 console.error("Error removing item from cart:", error);
+                toast.error(`Error removing item from cart: ${error.message}`);
                 return { success: false, message: error.message };
             }
         }
@@ -97,8 +127,7 @@ const ShopContextProvider = (props) => {
         } else {
             setServiceSelection(prev => [...prev, { productId, selection }]);
         }
-    }
-
+    };
 
     const getTotalCartAmount = () => {
         let totalAmount = 0;
@@ -111,7 +140,6 @@ const ShopContextProvider = (props) => {
         return totalAmount;
     };
 
-
     const getTotalCartItems = () => {
         let totalItem = 0;
         for (const item in cartItems) {
@@ -120,24 +148,31 @@ const ShopContextProvider = (props) => {
             }
         }
         return totalItem;
-    }
+    };
 
-    const clearCart = () => {
+    const clearCart = async () => {
         setCartItems(getDefaultCart());
         setServiceSelection([]);
         if (localStorage.getItem('auth-token')) {
-            fetch('http://localhost:4000/clearcart', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/form-data',
-                    'auth-token': `${localStorage.getItem('auth-token')}`,
-                    'Content-Type': 'application/json'
-                },
-            })
-                .then((response) => response.json())
-                .then((data) => console.log(data));
+            try {
+                const response = await fetch('http://localhost:4000/clearcart', {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/form-data',
+                        'auth-token': `${localStorage.getItem('auth-token')}`,
+                        'Content-Type': 'application/json'
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to clear cart');
+                }
+                const data = await response.json();
+                console.log(data);
+            } catch (error) {
+                toast.error(`Error clearing cart: ${error.message}`);
+            }
         }
-    }
+    };
 
     const contextValue = {
         getTotalCartItems,

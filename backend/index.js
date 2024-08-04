@@ -9,12 +9,30 @@ const nodemailer = require("nodemailer");
 const User = require('./models/User.js');
 const Product = require('./models/Product.js');
 
+let dbConnectionError = null;
+
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 // Database Connection with MongoDB
-mongoose.connect(process.env.MONGODB_URI, {});
+mongoose.connect(process.env.MONGODB_URI,
+    {}).then(() => {
+        console.log('Connected to MongoDB');
+        dbConnectionError = null;
+    }).catch(err => {
+        console.error('Failed to connect to MongoDB', err);
+        dbConnectionError = err;
+    });
+
+app.get('/db-status', (req, res) => {
+    const dbStatus = mongoose.connection.readyState;
+    res.json({
+        success: dbStatus === 1,
+        status: dbStatus,
+        error: dbConnectionError
+    });
+});
 
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
@@ -326,6 +344,17 @@ app.post('/removeproduct', async (req, res) => {
 app.get('/allproducts', async (req, res) => {
     let products = await Product.find({});
     res.send(products);
+});
+
+// Middleware to handle 404 errors
+app.use((req, res, next) => {
+    res.status(404).json({ success: false, message: 'Endpoint not found' });
+});
+
+// Global error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
 });
 
 const port = process.env.PORT || 4000;
