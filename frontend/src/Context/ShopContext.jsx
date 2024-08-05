@@ -107,9 +107,20 @@ const ShopContextProvider = (props) => {
                 if (!response.ok) {
                     throw new Error('Failed to remove item from cart');
                 }
+                
                 const data = await response.json();
                 console.log(data);
+
+                toast.success(data.message, {
+                    style: { width: '30vh', height: '10px', position: 'absolute', marginRight: '30%' },
+                });
+                setTimeout(() => {
+                }, 200);
+                // const updatedServiceSelection = serviceSelection.filter(item => item.productId !== itemId);
+                // setServiceSelection(updatedServiceSelection);
+    
                 return { success: true, message: data.message };
+                
             } catch (error) {
                 console.error("Error removing item from cart:", error);
                 toast.error(`Error removing item from cart: ${error.message}`);

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { ShopContext } from '../../Context/ShopContext';
 import remove_icon from '../Assets/cart_cross_icon.png';
+import 'react-toastify/dist/ReactToastify.css';
 import './CartItems.css';
 
 const CartItems = () => {
@@ -13,7 +14,7 @@ const CartItems = () => {
 
     useEffect(() => {
         console.log(all_product);
-    }, [all_product]);    
+    }, [all_product]);
 
     useEffect(() => {
         localStorage.setItem('serviceSelection', JSON.stringify(serviceSelection));
@@ -39,7 +40,6 @@ const CartItems = () => {
         }
         return additionalServiceCharge;
     };
-
 
     const serviceCharge = calculateAdditionalServiceCharge();
 
@@ -98,21 +98,26 @@ const CartItems = () => {
         return total;
     };
 
-    const handleRemoveFromCart = async (productId) => {
-        const result = await removeFromCart(productId);
-        if (result && result.success) {
-            toast.success(result.message, {
-                style: { width: '30vh', height: '10px', position: 'absolute', marginRight: '30%' },
-            });
-            const updatedServiceSelection = serviceSelection.filter(item => item.productId !== productId);
-            setServiceSelection(updatedServiceSelection);
-        } else {
-            toast.error(result.message || "Failed to remove item from cart", {
-                style: { width: '40vh' },
-                autoClose: 500
-            });
-        }
-    };
+    // const handleRemoveFromCart = async (productId) => {
+    //     console.log(`Removing product ID: ${productId}`);
+    //     const result = await removeFromCart(productId);
+    //     if (result && result.success) {
+    //         console.log('Toast: Item removed successfully');
+    //         toast.success(result.message, {
+    //             style: { width: '30vh', height: '10px', position: 'absolute', marginRight: '30%' },
+    //         });
+    //         setTimeout(() => {
+    //             // Additional actions if needed
+    //         }, 200);
+    //         const updatedServiceSelection = serviceSelection.filter(item => item.productId !== productId);
+    //         setServiceSelection(updatedServiceSelection);
+    //     } else {
+    //         toast.error(result.message || "Failed to remove item from cart", {
+    //             style: { width: '40vh' },
+    //             autoClose: 500
+    //         });
+    //     }
+    // };
 
     return (
         <div className='cartitems'>
@@ -139,7 +144,7 @@ const CartItems = () => {
                                 <p>Rp {e.new_price}</p>
                                 <button className='cartitems-quantity'>{cartItems[e.id]}</button>
                                 <p>{e.new_price * cartItems[e.id]}</p>
-                                <img className='cartitems-remove-icon' src={remove_icon} onClick={() => handleRemoveFromCart(e.id)} alt="" />
+                                <img className='cartitems-remove-icon' src={remove_icon} onClick={() => removeFromCart(e.id)} alt="" />
                             </div>
                             <hr />
                         </div>
@@ -214,7 +219,6 @@ const CartItems = () => {
                     <div className='container'>
                         <p><b>Note: </b></p>
                         {addresses.length > 0 ? (
-                            
                             <div key={addresses[addresses.length - 1]._id}>
                                 <p> &nbsp;{addresses[addresses.length - 1].address_note}</p>
                             </div>
@@ -261,7 +265,6 @@ const CartItems = () => {
                 pauseOnHover
             />
         </div>
-
     );
 };
 
