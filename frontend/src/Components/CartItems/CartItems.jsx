@@ -5,6 +5,7 @@ import { ShopContext } from '../../Context/ShopContext';
 import remove_icon from '../Assets/cart_cross_icon.png';
 import 'react-toastify/dist/ReactToastify.css';
 import './CartItems.css';
+import { Link } from 'react-router-dom';
 
 const CartItems = () => {
     const navigate = useNavigate();
@@ -98,26 +99,47 @@ const CartItems = () => {
         return total;
     };
 
-    // const handleRemoveFromCart = async (productId) => {
-    //     console.log(`Removing product ID: ${productId}`);
-    //     const result = await removeFromCart(productId);
-    //     if (result && result.success) {
-    //         console.log('Toast: Item removed successfully');
-    //         toast.success(result.message, {
-    //             style: { width: '30vh', height: '10px', position: 'absolute', marginRight: '30%' },
-    //         });
-    //         setTimeout(() => {
-    //             // Additional actions if needed
-    //         }, 200);
-    //         const updatedServiceSelection = serviceSelection.filter(item => item.productId !== productId);
-    //         setServiceSelection(updatedServiceSelection);
-    //     } else {
-    //         toast.error(result.message || "Failed to remove item from cart", {
-    //             style: { width: '40vh' },
-    //             autoClose: 500
-    //         });
-    //     }
-    // };
+    const renderCartItems = () => {
+        if (getTotalCartItems() === 0) {
+            return ( 
+                <Link to={'/wig'} style={{ textDecoration: "none" }}>
+                <div className="cart-container">
+                    <div className="cart-icon">
+                        <i className="fa fa-cart-arrow-down"></i>
+                        <div className="item-count">0</div>
+                    </div>
+                    <div className="empty-cart-message">
+                        Your cart is empty, let's add our product.
+                    </div>
+                </div>
+                </Link>
+            );
+        }
+
+        return all_product.map((e) => {
+            if (cartItems[e.id] > 0) {
+                if (!e.new_price) {
+                    console.error(`Product ID ${e.id} does not have a new_price defined.`);
+                    return null;
+                }
+                return (
+                    <div key={e.id}>
+                        <div className="cartitems-format cartitems-format-main">
+                            <img src={e.image} alt="" className='carticon-product-icon' />
+                            <p>{e.name}</p>
+                            <p>Rp {e.new_price}</p>
+                            <button className='cartitems-quantity'>{cartItems[e.id]}</button>
+                            <p>{e.new_price * cartItems[e.id]}</p>
+                            <img className='cartitems-remove-icon' src={remove_icon} onClick={() => removeFromCart(e.id)} alt="" />
+                        </div>
+                        <hr />
+                    </div>
+                    
+                );
+            }
+            return null;
+        });
+    };
 
     return (
         <div className='cartitems'>
@@ -130,29 +152,7 @@ const CartItems = () => {
                 <p>Remove</p>
             </div>
             <hr />
-            {all_product.map((e) => {
-                if (cartItems[e.id] > 0) {
-                    if (!e.new_price) {
-                        console.error(`Product ID ${e.id} does not have a new_price defined.`);
-                        return null;
-                    }
-                    return (
-                        <div key={e.id}>
-                            <div className="cartitems-format cartitems-format-main">
-                                <img src={e.image} alt="" className='carticon-product-icon' />
-                                <p>{e.name}</p>
-                                <p>Rp {e.new_price}</p>
-                                <button className='cartitems-quantity'>{cartItems[e.id]}</button>
-                                <p>{e.new_price * cartItems[e.id]}</p>
-                                <img className='cartitems-remove-icon' src={remove_icon} onClick={() => removeFromCart(e.id)} alt="" />
-                            </div>
-                            <hr />
-                        </div>
-                    );
-                }
-                return null;
-            })}
-
+            {renderCartItems()}
             <div className="cartitems-down">
                 <div className="cartitems-total">
                     <h2>Cart Summary</h2>
@@ -183,7 +183,6 @@ const CartItems = () => {
                     </div>
                     <button className='checkout' onClick={handleProceedToCheckout}>PROCEED TO CHECKOUT</button>
                 </div>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
                 <div className="cartitems-promocode">
                     <p>Please pay to <b>BCA 0198829019 A/N Person Name</b></p>
                     <br />
