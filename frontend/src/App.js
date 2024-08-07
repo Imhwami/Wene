@@ -43,7 +43,7 @@ function App() {
     
     <div>
       <BrowserRouter>
-      {/* <Navbar/> */}
+      <Navbar/>
       <Routes>
         <Route path='/' element={<Shop/>}/>
         <Route path='/wig' element={<ShopCategory banner={wig_banner} category="wig"/>}/>
@@ -58,7 +58,7 @@ function App() {
         <Route path='/successfull' element={<Successfull/>}/>
         <Route path='/address' element={<Address/>}/>
       </Routes>
-      {/* <Footer/> */}
+      <Footer/>
       </BrowserRouter>
       <ToastContainer />
     </div>
