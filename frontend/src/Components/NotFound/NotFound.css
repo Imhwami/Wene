@@ -1,0 +1,125 @@
+.Katakata {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: -30px;
+    position: relative;
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.notfound-video {
+    width: 20%;
+    max-width: 600px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    z-index: -5;
+    margin-bottom: -40px;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent;
+}
+
+.notfound-video:focus,
+.notfound-video:active {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+video {
+    -webkit-appearance: none;
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+video::-webkit-media-controls {
+    display: none;
+}
+
+video::-webkit-media-controls-enclosure {
+    display: none;
+}
+
+@media (max-width: 325px){
+    .Katakata h4 {
+        font-size: 24px;
+        margin-top: 50px;
+    }
+
+    .Katakata p {
+        font-size: 14px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .notfound-video {
+        display: none;
+    }
+}
+
+@media (max-width: 800px) and (min-width: 330px) {
+    .Katakata {
+        margin-top: -30px;
+    }
+
+    .Katakata h4 {
+        font-size: 24px;
+    }
+
+    .Katakata p {
+        font-size: 14px;
+        margin-top: 10px;
+        margin-bottom: 40px;
+    }
+
+    .notfound-video {
+        width: 66%;
+    }
+}
+
+@media (max-width: 1000px) and (min-width:801px) {
+    .Katakata {
+        margin-top: 0px;
+    }
+
+    .Katakata h4 {
+        font-size: 24px;
+    }
+
+    .Katakata p {
+        font-size: 14px;
+        margin-top: 10px;
+        margin-bottom: 140px;
+    }
+
+    .notfound-video {
+        width: 50%;
+    }
+}
+
+@media (max-width: 2000px) and (min-width:1001px) {
+    .Katakata {
+        margin-top: 0px;
+    }
+
+    .Katakata h4 {
+        font-size: 24px;
+    }
+
+    .Katakata p {
+        font-size: 14px;
+        margin-top: 10px;
+        margin-bottom: 40px;
+    }
+
+    .notfound-video {
+        width: 20%;
+    }
+}
