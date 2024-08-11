@@ -34,12 +34,12 @@ const ListProduct = () => {
     <div className='list-product'>
       <h1>All Products List</h1>
       <div className="listproduct-format-main">
-        <p>Products</p>
-        <p>Title</p>
-        <p>Old Price</p>
-        <p>New Price</p>
-        <p>Category</p>
-        <p>Remove</p>
+        <p style={{fontSize:'18px', fontWeight:'500'}}>Products</p>
+        <p style={{fontSize:'18px', fontWeight:'500'}}>Title</p>
+        <p style={{fontSize:'18px', fontWeight:'500'}}>Old Price</p>
+        <p style={{fontSize:'18px', fontWeight:'500'}}>New Price</p>
+        <p style={{fontSize:'18px', fontWeight:'500'}}>Category</p>
+        <p style={{fontSize:'18px', fontWeight:'500'}}>Remove</p>
       </div>
       <div className="listproduct-allproducts">
         <hr />
