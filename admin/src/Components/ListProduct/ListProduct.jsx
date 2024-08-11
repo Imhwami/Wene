@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './ListProduct.css'
 import cross_icon from '../../assets/cross_icon.png'
 
@@ -15,16 +15,20 @@ const ListProduct = () => {
     fetchInfo();
   }, [])
 
-  const remove_product = async(id)=>{
-    await fetch('http://localhost:4000/removeproduct',{
-      method:'POST',
-      headers:{
-        Accept:'application/json',
-        'Content-Type':'application/json',
-      }, body: JSON.stringify({id:id})
-    })
-    await fetchInfo();
-  }
+  const remove_product = async(id) => {
+    const confirmed = window.confirm("Are you sure you want to delete this item?");
+    if (confirmed) {
+        await fetch('http://localhost:4000/removeproduct', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: id })
+        });
+        await fetchInfo();
+    }
+};
 
   return (
     <div className='list-product'>
@@ -47,7 +51,7 @@ const ListProduct = () => {
               <p>Rp {product.old_price}</p>
               <p>Rp {product.new_price}</p>
               <p>{product.category}</p>
-              <img onClick = {()=>{remove_product(product.id)}}className='listproduct-remove-icon' src={cross_icon} alt="" />
+              <img onClick = {()=>{remove_product(product.id)}}className='listproduct-remove-icon' src={cross_icon} alt="Remove - Product from User side" />
             </div>
             <hr />
           </>

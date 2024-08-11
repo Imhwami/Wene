@@ -13,8 +13,8 @@
     align-items: center;
     justify-content: center;
     margin: 5px 10px;
-    border-radius: 6px;
-    background: #f6f6f6;
+    border-radius: 10px;
+    background: #0cbfdf2d;
     gap: 20px;
     cursor: pointer;
 }
