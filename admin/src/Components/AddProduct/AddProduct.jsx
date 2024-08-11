@@ -5,7 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AddProduct = () => {
-    const [image, setImage] = useState(false);
+    const [image, setImage] = useState(null);
     const [productDetails, setProductDetails] = useState({
         name: "",
         image: "",
@@ -20,19 +20,22 @@ const AddProduct = () => {
         // Check if the file is a PNG
         if (file && file.type !== "image/png") {
             toast.error("Only .png files are allowed.");
-            setImage(false);
+            setImage(null);
+            setProductDetails({ ...productDetails, image: "" }); // Clear the image in productDetails
             return;
         }
 
         // Check if the file size is under 2MB
         if (file && file.size > 2 * 1024 * 1024) {
             toast.error("File size must be under 2MB.");
-            setImage(false);
+            setImage(null);
+            setProductDetails({ ...productDetails, image: "" }); // Clear the image in productDetails
             return;
         }
 
         // If no errors, set the image
         setImage(file);
+        setProductDetails({ ...productDetails, image: file }); // Set the image in productDetails
     };
 
     const changeHandler = (e) => {
@@ -50,7 +53,7 @@ const AddProduct = () => {
     const Add_Product = async () => {
         const { name, image, category, new_price, old_price } = productDetails;
     
-        if (!name || !image || !category || !new_price || !old_price || !image) {
+        if (!name || !image || !category || !new_price || !old_price) {
             toast.error("All fields are required, including the image upload.");
             return;
         }
