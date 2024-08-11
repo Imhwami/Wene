@@ -56,6 +56,9 @@
     font-size: 16px;
     font-weight: 500;
 }
+.required {
+    color: red;
+}
 @media(max-width:800px) {
     .add-product{
         width: auto;
