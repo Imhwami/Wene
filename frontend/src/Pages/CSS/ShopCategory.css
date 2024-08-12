@@ -93,6 +93,6 @@
 }
 @media(max-width:500px) {
     .shopcategory-product{
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 0.8fr 0.8fr;
     }
 }
