@@ -18,6 +18,14 @@
   color: #ff2c3c;
 }
 
+.email{
+ 
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    align-items: center;
+  }
+
 .text {
   margin-top: 15px;
   font-size: 25px;
@@ -27,17 +35,12 @@
   font-weight: lighter;
 }
 
-* {
-  padding: 0;
-  margin: 0
-}
-
 .wrapper {
   height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eee
+  background-color: white
 }
 
 .checkmark__circle {
@@ -95,30 +98,37 @@
 }
 
 body {
-  > div {
+  >div {
     margin: 10px;
   }
+
   .screen {
     opacity: 0.25;
     animation: slide 4s linear infinite;
   }
+
   .star {
     animation: bounce 4s linear infinite;
   }
+
   .shaddow {
     transform-origin: center center;
     animation: bounceShaddow 4s linear infinite;
   }
 }
+
 @keyframes slide {
   from {
     transform: translatex(-10%);
   }
+
   to {
     transform: translatex(100%);
   }
 }
+
 @keyframes bounce {
+
   0%,
   40%,
   50%,
@@ -126,12 +136,15 @@ body {
   100% {
     transform: translatey(0%);
   }
+
   45%,
   55% {
     transform: translatey(-10%);
   }
 }
+
 @keyframes bounceShaddow {
+
   0%,
   40%,
   50%,
@@ -140,6 +153,7 @@ body {
     opacity: 100%;
     transform: scale(1, 1);
   }
+
   45%,
   55% {
     opacity: 30%;
@@ -147,13 +161,14 @@ body {
   }
 }
 
-.button-sampingan{
+.button-sampingan {
   display: flex;
   justify-content: space-between;
   margin: 15px;
   gap: 20px;
 }
-.copy{
+
+.copy {
   font-size: 18px;
   height: 30px;
   width: 45px;
@@ -164,11 +179,12 @@ body {
   background-color: #fff;
   font-family: 'avenir';
 }
-.copy:hover{
+
+.copy:hover {
   background-color: #ddd;
 }
 
-.back{
+.back {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -186,7 +202,7 @@ body {
   margin-bottom: 300px;
 }
 
-.shopping-again{
+.shopping-again {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -206,14 +222,98 @@ body {
 }
 
 .back:hover {
-  background-color: #ff80ac; 
+  background-color: #ff80ac;
   color: white;
   border: none;
 }
+
 .shopping-again:hover {
-  background-color: #ff80ac; 
+  background-color: #ff80ac;
   color: white;
   font-weight: 600;
   font-size: 19px;
 }
 
+@media only screen and (max-width: 800px) {
+
+  .back,
+  .shopping-again {
+    width: 150px;
+    height: 8vm;
+  }
+}
+
+@media only screen and (max-width: 330px) {
+  .content {
+    justify-content: center;
+    max-width: 300px;
+  }
+  .content p{
+    margin-top: 15px;
+  }
+  
+  .success{
+    font-size: 22px;
+  }
+
+  .copy {
+    font-size: 14px;
+    width: 50px;
+  }
+
+  .email{
+  font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    align-items: center;
+  }
+
+  .back,
+  .shopping-again {
+    width: 140px;
+    height: 10vw;
+    font-size: 16px;
+    margin-bottom: 70px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .content {
+    margin-top: 30px;
+    justify-content: center;
+    max-width: 100%;
+  }
+  .content p{
+    margin-top: 18px;
+  }
+  
+  .success{
+    font-size: 24px;
+  }
+
+  .copy {
+    font-size: 15px;
+    width: 50px;
+  }
+
+  .email{
+  font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    align-items: center;
+  }
+
+  .back,
+  .shopping-again {
+    width: 140px;
+    height: 10vw;
+    font-size: 16px;
+    margin-bottom: 70px;
+  }
+
+  .shopping-again:hover {
+    font-size: 16px !important;
+  }
+}
