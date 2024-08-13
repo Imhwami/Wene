@@ -1,4 +1,5 @@
 .hero {
+    width: 100%;
     height: 100vh;
     background: linear-gradient(180deg, #f4e7b8, #e1ffea22 60%);
     display: flex;
@@ -6,6 +7,7 @@
 }
 
 .hero-left {
+    padding-left: 20px;
     flex: 1;
     display: flex;
     flex-direction: column;

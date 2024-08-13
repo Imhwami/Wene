@@ -88,7 +88,7 @@ const ProductDisplay = (props) => {
                         <h1>Include Service</h1>
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
                         <div className="tooltip">
-                            <span className="tooltiptext" style={{ width: '360px' }}>If you choose yes, the staff will come and help apply the product</span>
+                            <span className="tooltiptext">If you choose yes, the staff will come and help apply the product</span>
                             <button className="question-mark" style={{width: '30px', height:'30px',  borderRadius: '50%', border: '1px solid #7a7a7a', alignItems:'center', padding:'5px', marginTop:'5px'}}>
                                 <i className="fa fa-question"></i>
                             </button>
