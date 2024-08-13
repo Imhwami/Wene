@@ -1005,7 +1005,7 @@ select {
 /* 
  - Asus Zenbook Fold (853) */
 
- @media (max-width:853px) and (min-width:853px){
+ @media (max-width:884px) and (min-width:834px){
   .add-address{
    width: 90%;
    font-size: 24px;
