@@ -44,7 +44,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        {/* <Navbar /> */}
+        <Navbar />
         <Routes>
           <Route path="/" element={<Shop />} />
           <Route path="/wig" element={<ShopCategory banner={wig_banner} category="wig" />} />

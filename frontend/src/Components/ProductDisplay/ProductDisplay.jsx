@@ -27,7 +27,7 @@ const ProductDisplay = (props) => {
             if (selectedService) {
                 addToCart(product.id);
                 toast.success("Successfully add item to cart",{
-                    style: { width: '30vh', height:'10px', position: 'absolute', marginRight:'30%'},
+                    style: { width: '30vh', height:'10vh', position: 'absolute', marginRight:'30%'},
                 })
                 setTimeout(() => {
                 }, 500);

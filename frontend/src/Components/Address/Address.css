@@ -249,7 +249,7 @@ select {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%;
+    width: 85%;
     font-size: 14px;
     padding: 10px;
   }
@@ -263,7 +263,7 @@ select {
     display: flex;
     flex-direction: column;
     align-content: center;
-    width: 100%;
+    min-width: 100%;
     margin-right: 0px;
     margin-top: 0px;
     margin-top: -10px;
@@ -284,7 +284,7 @@ select {
     outline: none;
     font-family: 'Poppins';
     font-size: 12px;
-    width: 100%;
+    min-width: 101%;
   
   }
   .cancel {
@@ -438,7 +438,7 @@ select {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 85%;
+    width: 86%;
     font-size: 14px;
     padding: 10px;
   }
@@ -452,7 +452,8 @@ select {
     display: flex;
     flex-direction: column;
     align-content: center;
-    width: 100%;
+    margin-left: 3px;
+    min-width: 100%;
     margin-right: 0px;
     margin-top: 0px;
     margin-top: -10px;
@@ -473,7 +474,7 @@ select {
     outline: none;
     font-family: 'Poppins';
     font-size: 12px;
-    width: 100%;
+    min-width: 101%;
   
   }
   .cancel {
@@ -867,9 +868,11 @@ select {
 
 /* - Kindle Fire HDX (800)
 - Nexus 10 (800) */
-@media (max-width:800px) and (min-width:800px){
+@media (max-width:800px) and (min-width:768px){
  .add-address{
-  width: 90%;
+  margin-top: -100px;
+  transform: scale(0.7);
+  width: 92%;
   font-size: 24px;
  }
  .add-address-fields{
@@ -914,7 +917,7 @@ select {
 
 @media (max-width:768px) and (min-width:768px){
   .add-address{
-   width: 90%;
+   width: 94%;
    font-size: 24px;
   }
   .add-address-fields{
@@ -960,7 +963,9 @@ select {
 /* - iPad Air (820) */
 @media (max-width:820px) and (min-width:820px){
   .add-address{
-   width: 90%;
+    margin-top: -50px;
+    transform: scale(0.8);
+   width: 95%;
    font-size: 24px;
   }
   .add-address-fields{
@@ -1007,7 +1012,9 @@ select {
 
  @media (max-width:884px) and (min-width:834px){
   .add-address{
-   width: 90%;
+    margin-top: -50px;
+    transform: scale(0.8);
+   width: 96%;
    font-size: 24px;
   }
   .add-address-fields{
@@ -1053,7 +1060,7 @@ select {
  /* - Surface Pro 7 (912) */
  @media (max-width:912px) and (min-width:912px){
   .add-address{
-   width: 90%;
+   width: 96%;
    font-size: 26px;
   }
   .add-address-fields{
@@ -1148,10 +1155,11 @@ select {
 
  @media (max-width:1280px) and (min-width:1280px){
   .add-address{
+  transform: scale(0.5);
    width:100%;
    margin-left: -20px;
    font-size: 38px;
-   margin-top: 70px;
+   margin-top: -200px;
   }
   .add-address-fields{
    margin-bottom: 20px;
