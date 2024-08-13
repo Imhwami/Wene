@@ -2,6 +2,7 @@
     height: 100vh;
     background: linear-gradient(180deg, #f4e7b8, #e1ffea22 60%);
     display: flex;
+    justify-content: center;
 }
 .hero-left{
     flex:1;
@@ -9,7 +10,6 @@
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-    padding-left: 180px;
     line-height: 1.1;
 }
 .hero-left h2{
@@ -60,15 +60,15 @@
     align-items: center;
     justify-content: center;
 }
-@media(max-width:1280px){
+@media(max-width:1280px)and (min-width:1114px){
     .hero-left{
-        padding-left: 180px;
+        padding-left: 80px;
     }
     .hero-left h2{
         font-size: 22px;
     }
     .hero-left p{
-        font-size: 60px;
+        font-size: 70px;
     }
     .hero-hand-icon img{
         width: 80px;
@@ -86,7 +86,7 @@
 }
 @media(max-width:1024px){
     .hero-left{
-        padding-left: 80px;
+        padding-left: 30px;
     }
     .hero-left h2{
         font-size: 20px;
@@ -106,9 +106,49 @@
         width: 400px;
     }
 }
-@media(max-width:800px){
+@media(max-width:1114px) and (min-width:1114px){
+    .hero-left{
+        padding-left: 50px;
+    }
+}
+@media(max-width:884px) and (min-width:884px){
+    .hero-left{
+        padding-left: 40px;
+    }
+}
+@media(max-width:768px) and (min-width:768px){
     .hero-left{
         padding-left: 30px;
+    }
+    .hero-left p{
+        font-size: 45px;
+    }
+}
+@media(max-width:834px) and (min-width:834px){
+    .hero-left{
+        padding-left: 50px;
+    }
+    .hero-left h2{
+        font-size: 20px;
+    }
+    .hero-left p{
+        font-size: 40px;
+    }
+    .hero-hand-icon img{
+        width: 50px;
+    }
+    .hero-latest-btn{
+        width: 175px;
+        height: 40px;
+        font-size: 13px;
+    }
+    .hero-right img{
+        width: 300px;
+    }
+}
+@media(max-width:800px) and (min-width:800px){
+    .hero-left{
+        padding-left: 50px;
     }
     .hero-left h2{
         font-size: 20px;
@@ -148,5 +188,27 @@
         width: 200px;
         height: 45px;
         font-size: 14px;
+    }
+}
+
+@media(max-width:330px) and (min-width:320px){
+    .hero{
+        height: 80vh;
+    }
+    .hero-left p{
+        font-size: 33px;
+    }
+}
+@media(max-width:393px) and (min-width:355px){
+    .hero{
+        padding-right:20px;
+    }
+    .hero-left p{
+        font-size: 40px;
+    }
+}
+@media(max-width:450px) and (min-width:400px){
+    .hero-left p{
+        font-size: 45px;
     }
 }
