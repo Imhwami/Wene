@@ -155,7 +155,7 @@
 @media(max-width:800px) {
     .newsletter {
         margin-bottom: 30px;
-        height: 350px;
+        height: 300px;
     }
 
     .newsletter h1 {
@@ -188,7 +188,7 @@
 @media(max-width:500px) {
     .newsletter {
         height: 250px;
-        width: 100%;
+        min-width: 105%;
         padding: 0;
         gap: 15px;
     }

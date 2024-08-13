@@ -64,8 +64,10 @@
 }
 @media(max-width:500px) {
     .collections{
+        margin-left: -15px;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 20px;
+        gap: 5px;
+        margin-bottom: -40px;
     }
 }

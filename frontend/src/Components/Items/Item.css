@@ -51,23 +51,76 @@
         font-size: 13px;
     }
 }
-@media(max-width:800px){
+@media(max-width:834px) and (min-width:834px){
     .item{
-        width: 120px;
+        width: 192px;
         font-size: 12px;
     }
     .item img{
-        width: 120px;
+        width: 192px;
     }
     .item-price-old{
         font-size: 12px;
     }
 }
-@media(max-width:500px){
+@media(max-width:820px) and (min-width:510px){
     .item{
-        width: 160px;
+        width: 188px;
+        font-size: 12px;
     }
     .item img{
-        width: 160px;
+        width: 188px;
+    }
+    .item-price-old{
+        font-size: 12px;
+    }
+}
+@media(max-width:500px) and (min-width:428px){
+    .item{
+        width: 210px;
+    }
+    .item img{
+        width: 210px;
+    }
+}
+@media(max-width:425px) and (min-width:395px){
+    .item{
+        width: 200px;
+    }
+    .item img{
+        width: 200px;
+    }
+}
+@media(max-width:393px) and (min-width:376px){
+    .item{
+        width: 190px;
+    }
+    .item img{
+        width: 190px;
+    }
+}
+@media(max-width:375px) and (min-width:375px){
+    .item{
+        width: 180px;
+    }
+    .item img{
+        width: 180px;
+    }
+}
+@media(max-width:360px) and (min-width:330px){
+    .item{
+        width: 175px;
+    }
+    .item img{
+        width: 175px;
+    }
+}
+
+@media(max-width:330px) and (min-width:320px){
+    .item{
+        width: 155px;
+    }
+    .item img{
+        width: 155px;
     }
 }

@@ -1,5 +1,5 @@
 .hero {
-    width: 100%;
+    min-width: 104%;
     height: 100vh;
     background: linear-gradient(180deg, #f4e7b8, #e1ffea22 60%);
     display: flex;
@@ -7,7 +7,7 @@
 }
 
 .hero-left {
-    padding-left: 20px;
+    padding-left: 50px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -68,6 +68,11 @@
 }
 
 @media(max-width:1280px)and (min-width:1114px) {
+    .hero{
+        min-width: 104%;
+        margin: 0;
+        padding: 0;
+    }
     .hero-left {
         padding-left: 80px;
     }
@@ -91,7 +96,7 @@
         margin-top: 20px;
         font-size: 18px;
     }
-
+    
     .hero-right img {
         width: 500px;
     }
@@ -130,7 +135,36 @@
         padding-left: 50px;
     }
 }
+@media(max-width:820px) and (min-width:820px) {
+    .hero{
+        height: 50vh;
+    }
+    .hero-left {
+        padding-left: 50px;
+    }
 
+    .hero-left h2 {
+        font-size: 20px;
+    }
+
+    .hero-left p {
+        font-size: 40px;
+    }
+
+    .hero-hand-icon img {
+        width: 50px;
+    }
+
+    .hero-latest-btn {
+        width: 175px;
+        height: 40px;
+        font-size: 13px;
+    }
+
+    .hero-right img {
+        width: 300px;
+    }
+}
 @media(max-width:884px) and (min-width:884px) {
     .hero{
         height: 60vh;
@@ -141,6 +175,9 @@
 }
 
 @media(max-width:768px) and (min-width:768px) {
+    .hero{
+        height: 60vh;
+    }
     .hero-left {
         padding-left: 30px;
     }
@@ -151,6 +188,9 @@
 }
 
 @media(max-width:834px) and (min-width:834px) {
+    .hero{
+        height: 50vh;
+    }
     .hero-left {
         padding-left: 50px;
     }
@@ -248,10 +288,9 @@
     }
 }
 
-@media(max-width:393px) and (min-width:355px) {
+@media(max-width:415px) and (min-width:355px) {
     .hero {
         height: 70vh;
-        padding-right: 20px;
     }
 
     .hero-left p {
