@@ -81,8 +81,7 @@ const ProductDisplay = (props) => {
                     </div>
                 </div>
                 <div className="productdisplay-right-description">
-                    A lightweight, usually knitted, pullover shirt, close-fitting and with a round
-                    necklace and short sleeves, worn as an undershirt or outer garment
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                 </div>
                 <div className="productdisplay-right-size">
                     <div className="service-text">

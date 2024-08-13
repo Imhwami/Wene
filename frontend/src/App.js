@@ -51,7 +51,7 @@ function App() {
           <Route path="/eyelash" element={<ShopCategory banner={eyelash_banner} category="eyelash" />} />
           <Route path="/nails" element={<ShopCategory banner={nails_banner} category="nails" />} />
           <Route path="/eyebrow" element={<ShopCategory banner={eyebrow_banner} category="eyebrow" />} />
-          <Route path="/product/:productId" element={<Product />} />
+          <Route path="/product/:productId" element={<Product />} />  ``
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<LoginSignup />} />
           <Route path="/successfull" element={<Successfull />} />
