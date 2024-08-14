@@ -45,7 +45,17 @@ const CartItems = () => {
     const serviceCharge = calculateAdditionalServiceCharge();
 
     useEffect(() => {
-        fetchAddresses();
+        if (!localStorage.getItem('auth-token')) {
+            toast.error("User must be logged in", {
+                style: { width: '250px' },
+            });
+
+            setTimeout(() => {
+                window.location.replace('/login');
+            }, 1000);
+        } else {
+            fetchAddresses();
+        }
     }, []);
 
     const fetchAddresses = async () => {
@@ -57,18 +67,12 @@ const CartItems = () => {
                 },
             });
             if (!response.ok) {
-                toast.error('Failed to fetch addresses', {
-                    style: { width: '40vh' },
-                    autoClose: 500
-                });
+                throw new Error('Failed to fetch addresses');
             }
             const data = await response.json();
-            setAddresses(data.addresses);
+            setAddresses(data.addresses || []);
         } catch (error) {
-            toast.error('Error fetching addresses:', error, {
-                style: { width: '30vh' },
-                autoClose: 500
-            });
+            setAddresses([]);
         }
     };
 
@@ -101,19 +105,21 @@ const CartItems = () => {
 
     const renderCartItems = () => {
         if (getTotalCartItems() === 0) {
-            return ( 
+            return (
                 <Link to={'/wig'} style={{ textDecoration: "none" }}>
-                <div className="cart-container">
-                    <div className="cart-icon">
-                        <i className="fa fa-cart-arrow-down"></i>
-                        <div className="item-count">0</div>
+                    <div className="cart-container">
+                        <div className="cart-icon">
+                            <i className="fa fa-cart-arrow-down"></i>
+                            <div className="item-count">0</div>
+                        </div>
+                        <div className="empty-cart-message">
+                            Your cart is empty, let's add our product.
+                        </div>
                     </div>
-                    <div className="empty-cart-message">
-                        Your cart is empty, let's add our product.
-                    </div>
-                </div>
                 </Link>
             );
+
+
         }
 
         return all_product.map((e) => {
@@ -134,7 +140,7 @@ const CartItems = () => {
                         </div>
                         <hr />
                     </div>
-                    
+
                 );
             }
             return null;

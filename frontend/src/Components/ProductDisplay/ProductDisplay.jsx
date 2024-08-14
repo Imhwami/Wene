@@ -44,7 +44,7 @@ const ProductDisplay = (props) => {
 
             setTimeout(() => {
                 window.location.replace('/login');
-            }, 500);
+            }, 400);
         }
     };
 
