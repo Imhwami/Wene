@@ -140,6 +140,17 @@ const LoginSignup = () => {
     state === "Login" ? login() : signup();
   };
 
+  document.addEventListener('focusin', (e) => {
+    if (window.innerWidth <= 320) {
+        const target = e.target;
+        if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
+            setTimeout(() => {
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+    }
+});
+
   return (
     <div className='loginsignup'>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />

@@ -22,7 +22,7 @@
   
 .loginsignup{
     align-content: center;
-    width: 100%;
+    min-width: 103.5%;
     height: 85vh;
     background: #fce3fe;
 }
@@ -161,3 +161,35 @@ color: rgb(220, 220, 220);  }
         font-size: 16px;
     }
 }
+
+@media (max-width:800px) {
+    .loginsignup-container{
+        margin-top: -100px;
+        transform: scale(0.78);
+    }
+}
+
+@media (max-width: 320px) {
+    .loginsignup {
+        height: auto; /* Adjust height to fit content */
+        padding-bottom: 50px; /* Add some padding to the bottom */
+    }
+    
+    .loginsignup-container {
+        width: 95%;
+        padding: 20px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+    
+    .loginsignup-fields input {
+        height: 40px;
+    }
+    
+    .loginsignup-container button {
+        height: 50px;
+        font-size: 14px;
+        width: 100%;
+    }
+}
+
