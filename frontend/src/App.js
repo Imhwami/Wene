@@ -60,7 +60,6 @@ function App() {
         </Routes>
         <Footer />
       </BrowserRouter>
-      <ToastContainer />
     </div>
   );
 }

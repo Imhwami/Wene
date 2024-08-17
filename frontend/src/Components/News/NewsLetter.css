@@ -62,29 +62,8 @@
     color: white;
 }
 
-.custom-toast {
-    background-color: #9cdea0 !important; /* Green background */
-    color: #20091e !important; /* Custom text color */
-    font-size: 16px !important; /* Custom font size */
-    padding: 15px !important; /* Custom padding */
-    border-radius: 8px !important; /* Rounded corners */
-}
-
-.custom-toast-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: '450px'
-}
-
-.custom-toast-icon {
-    margin-right: 10px;
-    font-size: 20px;
-    color: black;
-}
-
 .spinner-icon {
-    font-size: 2em; /* Adjust this value to make the spinner larger */
+    font-size: 2em; 
 }
 
 

@@ -326,7 +326,7 @@ select {
 
 /* - Pixel 3 (393)
 - Pixel 3 XL (393) */
-@media (max-width:393px) and (min-width:393px) {
+@media (max-width:394px) and (min-width:392px) {
   .add-address-fields textarea{
     padding: 15px;
     font-size: 12px;

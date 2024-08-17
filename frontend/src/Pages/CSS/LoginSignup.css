@@ -6,13 +6,6 @@
     padding: 15px !important; /* Custom padding */
     border-radius: 8px !important; /* Rounded corners */
   }
-
-  .custom-toast-body {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
   
   .custom-toast-icon {
     margin-right: 10px;
@@ -25,6 +18,7 @@
     min-width: 103.5%;
     height: 85vh;
     background: #fce3fe;
+    margin-bottom: 50px;
 }
 
 .loginsignup-container{
@@ -114,11 +108,12 @@ color: rgb(220, 220, 220);  }
 @media (max-width:1280px) {
     .loginsignup{
         padding-top: 50px;
+        padding-bottom: 30px;
     }
     .loginsignup-container{
         width: auto;
         max-width: 500px;
-        max-height: 510px;
+        max-height: 600px;
     }
     .loginsignup-container h1{
         margin: 12px 0px;
@@ -161,7 +156,25 @@ color: rgb(220, 220, 220);  }
         font-size: 16px;
     }
 }
+@media (max-width:884px) and (min-width:884px) {
+    .loginsignup{
+        min-width: 859px;
+    }
+    .loginsignup-container{
+        margin-top: -100px;
+        transform: scale(0.78);
+    }
+}
 
+@media (max-width:834px) and (min-width:834px) {
+    .loginsignup{
+        min-width: 812px;
+    }
+    .loginsignup-container{
+        margin-top: -100px;
+        transform: scale(0.78);
+    }
+}
 @media (max-width:800px) {
     .loginsignup-container{
         margin-top: -100px;
@@ -171,12 +184,12 @@ color: rgb(220, 220, 220);  }
 
 @media (max-width: 320px) {
     .loginsignup {
-        height: auto; /* Adjust height to fit content */
-        padding-bottom: 50px; /* Add some padding to the bottom */
+        height: auto; 
+        padding-bottom: 50px; 
     }
     
     .loginsignup-container {
-        width: 95%;
+        width: 94%;
         padding: 20px;
         margin: 0 auto;
         box-sizing: border-box;

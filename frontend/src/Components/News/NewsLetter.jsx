@@ -18,9 +18,14 @@ const NewsLetter = () => {
     setIsEmailValid(newEmail === '' || emailRegex.test(newEmail));
   };
 
+  let toastId = null;
+
   const handleSubscribe = async () => {
+    console.log("handlesubscribe dipanggil")
     if (!email || !isEmailValid) {
-      toast.error('Please enter a valid email address.');
+      if (!toast.isActive(toastId)) {
+        toastId = toast.error('Please enter a valid email address.');
+      }
       return;
     }
 
@@ -37,19 +42,25 @@ const NewsLetter = () => {
 
       const result = await response.json();
       if (result.success) {
-        toast.success('Subscription successful! Please check your email.', {
-          className: 'custom-toast',
-          style: { alignItems: 'center', width: '450px' },
-          icon: <FontAwesomeIcon icon={faHeart} className="custom-toast-icon fa-beat" />
-        });
+        if (!toast.isActive(toastId)) {
+          toastId = toast.success('Subscription successful! Please check your email.', {
+            className: 'custom-toast',
+            style: { width: 'fit-content' },
+            icon: <FontAwesomeIcon icon={faHeart} className="custom-toast-icon fa-beat" />
+          });
+        }
         setEmail('');
         setIsEmailValid(true);
       } else {
-        toast.error('Subscription failed. Please try again.');
+        if (!toast.isActive(toastId)) {
+          toastId = toast.error('Subscription failed. Please try again.');
+        }
       }
     } catch (error) {
       console.error('Error subscribing:', error);
-      toast.error('An error occurred. Please try again later.');
+      if (!toast.isActive(toastId)) {
+        toastId = toast.error('An error occurred. Please try again later.');
+      }
     } finally {
       setLoading(false);
     }
@@ -76,6 +87,7 @@ const NewsLetter = () => {
       </div>
       {email && !isEmailValid && <p className="error-message">Please enter a valid email address.</p>}
       <ToastContainer
+        limit={1}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -83,7 +95,6 @@ const NewsLetter = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        className="custom-toast-body"
       />
     </div>
   );

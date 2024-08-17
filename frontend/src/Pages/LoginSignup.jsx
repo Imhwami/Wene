@@ -120,13 +120,12 @@ const LoginSignup = () => {
     if (responseData.success) {
       toast.success("User successfully sign up", {
         className: 'custom-toast',
-        style: {alignItems:'center'},
         icon: <FontAwesomeIcon icon={faHeart} className="custom-toast-icon fa-beat" />
       });
 
       setTimeout(() => {
-        setState("Login")
-      }, 200); // Redirect after 2 seconds to allow toast to display      setState("Login"); // Redirect to login form
+        // setState("Login")
+      }, 200);   
       setFormData({ username: "", password: "", email: "" }); // Reset form data
       setFormSubmitted(false); // Reset form submission state
       setAgree(false); // Reset agree state
@@ -237,7 +236,6 @@ const LoginSignup = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        className="custom-toast-body"
       />
     </div>
   );

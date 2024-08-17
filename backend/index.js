@@ -8,6 +8,7 @@ const cors = require("cors");
 const nodemailer = require("nodemailer");
 const User = require('./models/User.js');
 const Product = require('./models/Product.js');
+const Transaction = require('./models/Transaction');
 
 let dbConnectionError = null;
 
@@ -33,6 +34,7 @@ app.get('/db-status', (req, res) => {
         error: dbConnectionError
     });
 });
+
 
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
@@ -363,6 +365,95 @@ app.listen(port, (error) => {
         console.log(`Server Running on Port ${port}`);
     } else {
         console.log("Error: " + error);
+    }
+});
+
+// Route to create a new transaction
+app.post('/createtransaction', fetchUser, async (req, res) => {
+    const { items } = req.body; // Destructure items array from the request body
+
+    if (!items || items.length === 0) {
+        return res.status(400).json({ success: false, message: 'No items provided for transaction' });
+    }
+
+    try {
+        const transactions = [];
+
+        for (let item of items) {
+            const { product_id, quantity, total_price } = item;
+            const product = await Product.findById(product_id);
+            if (!product) {
+                return res.status(404).json({ success: false, message: `Product with ID ${product_id} not found` });
+            }
+
+            const transaction = new Transaction({
+                userId: req.user.id,
+                productId: product_id,
+                quantity: quantity,
+                totalPrice: total_price,
+                date: new Date().toISOString() // Optional: set date here, or leave it to default in schema
+            });
+
+            await transaction.save();
+            transactions.push(transaction);
+        }
+
+        res.json({ success: true, message: 'Transactions created successfully', transactions });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
+
+
+
+// Route to get all transactions (for admin)
+app.get('/alltransactions', async (req, res) => {
+    try {
+        const transactions = await Transaction.find().populate('userId', 'name email').populate('productId', 'name');
+        res.json({ success: true, transactions });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
+
+// Route to get total sales for each product (for admin)
+app.get('/totalsales', async (req, res) => {
+    try {
+        const sales = await Transaction.aggregate([
+            {
+                $group: {
+                    _id: "$productId",
+                    totalQuantity: { $sum: "$quantity" },
+                    totalRevenue: { $sum: "$totalPrice" }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'products',
+                    localField: '_id',
+                    foreignField: '_id',
+                    as: 'productDetails'
+                }
+            },
+            {
+                $unwind: "$productDetails"
+            },
+            {
+                $project: {
+                    productId: "$_id",
+                    productName: "$productDetails.name",
+                    totalQuantity: 1,
+                    totalRevenue: 1
+                }
+            }
+        ]);
+
+        res.json({ success: true, sales });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
 
