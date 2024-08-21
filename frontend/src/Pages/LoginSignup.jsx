@@ -118,13 +118,27 @@ const LoginSignup = () => {
       body: JSON.stringify(formData),
     }).then((response) => response.json()).then((data) => responseData = data);
     if (responseData.success) {
+      localStorage.setItem('auth-token', responseData.token);
+      await fetch('http://localhost:4000/login', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/form-data',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      }).then((response) => response.json()).then((data) => responseData = data);
+      if (responseData.success) {
+        localStorage.setItem('auth-token', responseData.token);
+        localStorage.setItem('userId', responseData.userId);
+        localStorage.setItem('email', responseData.email);
+      }
       toast.success("User successfully sign up", {
         className: 'custom-toast',
         icon: <FontAwesomeIcon icon={faHeart} className="custom-toast-icon fa-beat" />
       });
-
-      setTimeout(() => {
-        // setState("Login")
+      console.log(responseData)
+      setTimeout(() => {     
+        window.location.replace("/cart");
       }, 200);   
       setFormData({ username: "", password: "", email: "" }); // Reset form data
       setFormSubmitted(false); // Reset form submission state

@@ -91,6 +91,7 @@ color: rgb(220, 220, 220);  }
     color: #5c5c5c;
     font-size: 18px;
     font-weight: 500;
+    cursor: pointer;
 }
 .loginsignup-login span{
     color: #0CC0DF;
@@ -104,6 +105,9 @@ color: rgb(220, 220, 220);  }
     color: #5c5c5c;
     font-size: 18px;
     font-weight: 500;
+}
+.login-signup-agree input{
+    cursor: pointer;
 }
 @media (max-width:1280px) {
     .loginsignup{

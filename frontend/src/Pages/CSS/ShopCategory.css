@@ -12,6 +12,7 @@
 }
 
 .shop-category-sort {
+    cursor: pointer;
     padding: 10px;
     border-radius: 40px;
     border: 1px solid #888;

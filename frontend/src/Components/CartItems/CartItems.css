@@ -9,6 +9,7 @@
     background: #e2e2e2;
     border: 0;
 }
+
 .cartitems-format-main{
     display: grid;
     grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
@@ -200,14 +201,14 @@
 
 @media (max-width:1280px) {
     .cartitems-format-main {
-        grid-template-columns: 0.5fr 1fr 0.5fr 0.5fr 0.5fr 0.5fr;
+        grid-template-columns: 0.5fr 2fr 0.5fr 0.5fr 0.5fr 0.5fr;
         gap: 20px;
-        padding: 15px 0px;
+        padding: 15px 30px;
         font-size: 15px;
     }
 
     .cartitems-format .title-column {
-        max-width: 150px; /* Adjust the width according to your needs */
+        max-width: 100px; 
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -218,7 +219,7 @@
     }
 
     .cartitems-remove-icon {
-        margin: auto;
+        margin-left: 30px;
     }
 
     .cartitems-quantity {
@@ -321,6 +322,7 @@
     }
 
     .cartitems-format-main {
+        margin-left: 20px;
         grid-template-columns: 1fr 2fr 1fr 1fr;
         gap: 5px;
         font-size: 14px;

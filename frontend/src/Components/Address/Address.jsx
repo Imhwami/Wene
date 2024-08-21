@@ -120,7 +120,7 @@ const Address = () => {
     <div>
       <div className="add-address">
         <div className="add-address-fields">
-          <p>Address details<span style={{color: 'red'}}> *</span></p>
+          <p>Address Details<span style={{color: 'red'}}> *</span></p>
           <textarea type='text' rows="3" cols="100" style={{ resize: 'none' }} maxLength="1000" name='address_details' placeholder='Input the address details (Street Name, RT/RW, Kelurahan, Kecamatan)' onChange={changeHandler} required></textarea>
           {formSubmitted && addressDetails.address_details === ""}
           <br/>

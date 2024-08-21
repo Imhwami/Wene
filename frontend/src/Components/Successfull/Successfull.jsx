@@ -15,7 +15,7 @@ const Successfull = () => {
             });
     };
     const handleChatClick = () => {
-        window.open("https://alvo.chat/4w7b", "_blank");
+        window.open("https://web.whatsapp.com/send?phone=628816179600&text=Hi%20Admin%20%F0%9F%98%8A%2C%20%0AI%20want%20to%20confirm%20my%20shopping%2C%20Here%20are%20my%20details%3A%20%0A1.%20My%20name%3A%20%0A2.%20My%20email%3A", "_blank");
     };
     return (
         <div class='content'>

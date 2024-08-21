@@ -370,8 +370,9 @@ app.listen(port, (error) => {
 
 // Route to create a new transaction
 app.post('/createtransaction', fetchUser, async (req, res) => {
+    console.log("ceatetransaction")
     const { items } = req.body; // Destructure items array from the request body
-
+    console.log (req.body);
     if (!items || items.length === 0) {
         return res.status(400).json({ success: false, message: 'No items provided for transaction' });
     }
@@ -380,24 +381,26 @@ app.post('/createtransaction', fetchUser, async (req, res) => {
         const transactions = [];
 
         for (let item of items) {
-            const { product_id, quantity, total_price } = item;
-            const product = await Product.findById(product_id);
+            const { productId, quantity, totalPrice } = item;
+            const product = await Product.findById(productId);
             if (!product) {
-                return res.status(404).json({ success: false, message: `Product with ID ${product_id} not found` });
+                return res.status(404).json({ success: false, message: `Product with ID ${productId} not found` });
             }
-
+            console.log('Product ID received:', productId);
+            console.log('Product found:', product);            
             const transaction = new Transaction({
                 userId: req.user.id,
-                productId: product_id,
+                productId: product._id, // Use product._id instead of productId
                 quantity: quantity,
-                totalPrice: total_price,
+                totalPrice: totalPrice,
                 date: new Date().toISOString() // Optional: set date here, or leave it to default in schema
             });
 
             await transaction.save();
             transactions.push(transaction);
         }
-
+            console.log("Route /createtransaction hit");
+            res.send("Route is working");        
         res.json({ success: true, message: 'Transactions created successfully', transactions });
     } catch (error) {
         console.error(error);
@@ -456,6 +459,13 @@ app.get('/totalsales', async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
+
+app.post('/test', (req, res) => {
+    res.json({ success: true, message: 'Test endpoint hit', data: req.body });
+});
+
+
+app.use(cors)
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
