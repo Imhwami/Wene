@@ -9,6 +9,7 @@ const nodemailer = require("nodemailer");
 const User = require('./models/User.js');
 const Product = require('./models/Product.js');
 const Transaction = require('./models/Transaction');
+const router = express.Router();
 
 let dbConnectionError = null;
 
@@ -16,6 +17,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Global error handling middleware
+// app.use((err, req, res, next) => {
+//     console.error(err.stack);
+//     res.status(500).json({ success: false, message: 'Internal Server Error' });
+// });
 // Database Connection with MongoDB
 mongoose.connect(process.env.MONGODB_URI,
     {}).then(() => {
@@ -34,7 +40,6 @@ app.get('/db-status', (req, res) => {
         error: dbConnectionError
     });
 });
-
 
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
@@ -348,16 +353,6 @@ app.get('/allproducts', async (req, res) => {
     res.send(products);
 });
 
-// Middleware to handle 404 errors
-app.use((req, res, next) => {
-    res.status(404).json({ success: false, message: 'Endpoint not found' });
-});
-
-// Global error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ success: false, message: 'Internal Server Error' });
-});
 
 const port = process.env.PORT || 4000;
 app.listen(port, (error) => {
@@ -370,45 +365,37 @@ app.listen(port, (error) => {
 
 // Route to create a new transaction
 app.post('/createtransaction', fetchUser, async (req, res) => {
-    console.log("ceatetransaction")
-    const { items } = req.body; // Destructure items array from the request body
-    console.log (req.body);
-    if (!items || items.length === 0) {
-        return res.status(400).json({ success: false, message: 'No items provided for transaction' });
-    }
-
     try {
-        const transactions = [];
+        const { items, totalAmount } = req.body;
 
-        for (let item of items) {
-            const { productId, quantity, totalPrice } = item;
-            const product = await Product.findById(productId);
-            if (!product) {
-                return res.status(404).json({ success: false, message: `Product with ID ${productId} not found` });
-            }
-            console.log('Product ID received:', productId);
-            console.log('Product found:', product);            
-            const transaction = new Transaction({
-                userId: req.user.id,
-                productId: product._id, // Use product._id instead of productId
-                quantity: quantity,
-                totalPrice: totalPrice,
-                date: new Date().toISOString() // Optional: set date here, or leave it to default in schema
-            });
-
-            await transaction.save();
-            transactions.push(transaction);
+        if (!Array.isArray(items) || items.length === 0) {
+            return res.status(400).json({ success: false, message: 'Items must be a non-empty array' });
         }
-            console.log("Route /createtransaction hit");
-            res.send("Route is working");        
-        res.json({ success: true, message: 'Transactions created successfully', transactions });
+
+        if (!totalAmount) {
+            return res.status(400).json({ success: false, message: 'Missing totalAmount' });
+        }
+
+        if (!req.user) {
+            return res.status(401).json({ success: false, message: "User not authenticated" });
+        }
+
+        const transactions = items.map(item => ({
+            userId: req.user.id,
+            productId: item.productId,
+            quantity: item.quantity,
+            totalPrice: item.quantity * totalAmount, 
+            date: new Date(),
+        }));
+
+        await Transaction.insertMany(transactions);
+
+        res.status(200).json({ success: true, message: 'Transaction(s) created successfully' });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ success: false, message: 'Internal server error' });
+        res.status(500).json({ success: false, message: 'Server error' });
     }
 });
-
-
 
 // Route to get all transactions (for admin)
 app.get('/alltransactions', async (req, res) => {
@@ -460,12 +447,6 @@ app.get('/totalsales', async (req, res) => {
     }
 });
 
-app.post('/test', (req, res) => {
-    res.json({ success: true, message: 'Test endpoint hit', data: req.body });
-});
-
-
-app.use(cors)
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");

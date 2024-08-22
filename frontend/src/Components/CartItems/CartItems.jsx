@@ -76,27 +76,92 @@ const CartItems = () => {
         }
     };
 
+    // const handleProceedToCheckout = async () => {
+    //     try {
+    //         const response = await fetch('http://localhost:4000/clearcart', {
+    //             method: 'POST',
+    //             headers: {
+    //                 Accept: 'application/form-data',
+    //                 'auth-token': `${localStorage.getItem('auth-token')}`,
+    //                 'Content-Type': 'application/json'
+    //             },
+    //         });
+    //         if (!response.ok) {
+    //             throw new Error('Failed to clear cart');
+    //         }
+    //         await response.text();
+    //         clearCart();
+    //         navigate('/successfull');
+    //     } catch (error) {
+    //         console.error('Error clearing cart:', error);
+    //     }
+    // };
+
     const handleProceedToCheckout = async () => {
         try {
-            const response = await fetch('http://localhost:4000/clearcart', {
+            // Convert cartItems object to an array of items
+            const cartItemsArray = Object.keys(cartItems).map(key => ({
+                productId: parseInt(key, 10),
+                quantity: cartItems[key],
+            }));
+            
+            console.log("cartItemsArray", cartItemsArray);
+    
+            // Fetch product details to map the productId to product._id
+            const productDetailsResponse = await fetch('http://localhost:4000/allproducts');
+            const productDetails = await productDetailsResponse.json();
+            
+            console.log("productDetails", productDetails);
+    
+            // Map cart items to include product._id instead of productId
+            const validCartItems = cartItemsArray
+                .map(item => {
+                    const product = productDetails.find(p => p.id === item.productId);
+                    return product && item.quantity > 0 ? {
+                        productId: product._id, // Use product._id
+                        quantity: item.quantity,
+                    } : null;
+                })
+                .filter(item => item !== null);
+    
+            console.log("validCartItems", validCartItems);
+    
+            // Only proceed if there are valid items with non-zero quantities
+            if (validCartItems.length === 0) {
+                throw new Error('No valid items in the cart');
+            }
+    
+            // Make the API request to create the transaction
+            const response = await fetch('http://localhost:4000/createtransaction', {
                 method: 'POST',
                 headers: {
-                    Accept: 'application/form-data',
+                    Accept: 'application/json',
                     'auth-token': `${localStorage.getItem('auth-token')}`,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    items: validCartItems,
+                    totalAmount: getTotalCartAmount(),
+                }),
             });
+    
+            // Check if the response is not OK
             if (!response.ok) {
-                throw new Error('Failed to clear cart');
+                throw new Error('Failed to create transaction');
             }
+    
+            // Handle successful response
             await response.text();
+    
+            // Clear the cart and navigate to the success page
             clearCart();
             navigate('/successfull');
         } catch (error) {
-            console.error('Error clearing cart:', error);
+            // Log any errors that occur during the process
+            console.error('Error creating transaction:', error);
         }
-    };
-
+    };    
+         
     const getTotalWithService = () => {
         let total = getTotalCartAmount();
         total += serviceCharge;
