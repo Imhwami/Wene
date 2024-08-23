@@ -384,7 +384,7 @@ app.post('/createtransaction', fetchUser, async (req, res) => {
             userId: req.user.id,
             productId: item.productId,
             quantity: item.quantity,
-            totalPrice: item.quantity * totalAmount, 
+            totalPrice: totalAmount, 
             date: new Date(),
         }));
 
@@ -400,7 +400,12 @@ app.post('/createtransaction', fetchUser, async (req, res) => {
 // Route to get all transactions (for admin)
 app.get('/alltransactions', async (req, res) => {
     try {
-        const transactions = await Transaction.find().populate('userId', 'name email').populate('productId', 'name');
+        // Populate 'userId' to get the user's name and email
+        // Populate 'productId' to get the product's name and image
+        const transactions = await Transaction.find()
+            .populate('userId', 'name email')
+            .populate('productId', 'name image'); // Include 'image' here
+
         res.json({ success: true, transactions });
     } catch (error) {
         console.error(error);
@@ -434,6 +439,7 @@ app.get('/totalsales', async (req, res) => {
                 $project: {
                     productId: "$_id",
                     productName: "$productDetails.name",
+                    productImage: "$productDetails.image", // Include the image
                     totalQuantity: 1,
                     totalRevenue: 1
                 }
@@ -446,7 +452,6 @@ app.get('/totalsales', async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
-
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");

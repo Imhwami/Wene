@@ -3,6 +3,8 @@ import './Sidebar.css'
 import {Link} from 'react-router-dom'
 import add_product_icon from '../../assets/Product_Cart.svg'
 import list_product_icon from '../../assets/Product_list_icon.svg'
+import transaction_icon from '../../assets/transaction.svg'
+
 const Sidebar = () => {
   return (
     <div className='sidebar'>
@@ -20,8 +22,8 @@ const Sidebar = () => {
       </Link>
       <Link to={'/admintransactionpage'} style={{textDecoration:"none"}}>
         <div className="sidebar-item">
-            <img src={list_product_icon} alt="" />
-            <p>Product List</p>
+            <img src={transaction_icon} alt="" />
+            <p>Transaction</p>
         </div>
       </Link>
     </div>

@@ -141,7 +141,7 @@ const CartItems = () => {
                 },
                 body: JSON.stringify({
                     items: validCartItems,
-                    totalAmount: getTotalCartAmount(),
+                    totalAmount: getTotalWithService(),
                 }),
             });
     

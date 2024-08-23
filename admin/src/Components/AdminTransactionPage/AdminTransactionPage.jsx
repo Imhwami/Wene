@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import './AdminTransactionPage.css';
 
 const AdminTransactionsPage = () => {
     console.log("admintransactionpage");
@@ -47,8 +48,10 @@ const AdminTransactionsPage = () => {
         fetchData();
     }, []);
 
+
+
     return (
-        <div>
+        <div className='bodybody'>
             <h1>Transactions</h1>
             {error ? (
                 <p>Error: {error}</p>
@@ -57,32 +60,63 @@ const AdminTransactionsPage = () => {
                     <table>
                         <thead>
                             <tr>
-                                <th>User</th>
+                                <th>Date</th>
+                                <th>Consumer (Email & Name)</th>
                                 <th>Product</th>
+                                <th>Image</th> {/* New header for image */}
                                 <th>Quantity</th>
                                 <th>Total Price</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {transactions.map(tx => (
-                                <tr key={tx._id}>
-                                    <td>{tx.userId.name} ({tx.userId.email})</td>
-                                    <td>{tx.productId.name}</td>
-                                    <td>{tx.quantity}</td>
-                                    <td>${tx.totalPrice}</td>
-                                </tr>
-                            ))}
+                            {transactions.map(tx => {
+                                // Convert the backend date to a JavaScript Date object
+                                const formattedDate = new Date(tx.date).toLocaleDateString('en-GB', {
+                                    day: '2-digit',
+                                    month: 'long',
+                                    year: 'numeric',
+                                });
+
+                                // Format the totalPrice with dots every three digits
+                                const formattedTotalPrice = tx.totalPrice.toLocaleString('id-ID');
+
+                                return (
+                                    <tr key={tx._id}>
+                                        <td>{formattedDate}</td>
+                                        <td>{tx.userId.name} ({tx.userId.email})</td>
+                                        <td>{tx.productId.name}</td>
+                                        <td>
+                                            {/* Display the product image */}
+                                            <img src={tx.productId.image} alt={tx.productId.name} style={{ width: '50px', height: 'auto' }} />
+                                        </td>
+                                        <td>{tx.quantity}</td>
+                                        <td>Rp {formattedTotalPrice}</td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
 
+
                     <h2>Total Sales</h2>
                     <ul>
-                        {sales.map(sale => (
-                            <li key={sale.productId}>
-                                {sale.productName}: {sale.totalQuantity} units sold, ${sale.totalRevenue} total revenue
-                            </li>
-                        ))}
+                        {sales.map(sale => {
+                            // Format the totalRevenue with dots every three digits
+                            const formattedTotalRevenue = sale.totalRevenue.toLocaleString('id-ID');
+
+                            return (
+                                <li key={sale.productId}>
+                                    <img
+                                        src={sale.productImage}
+                                        alt={sale.productName}
+                                        style={{ width: '200px', height: '180px', marginRight: '20px' }}
+                                    />
+                                    {sale.productName}: {sale.totalQuantity} units sold, with total revenue: Rp {formattedTotalRevenue}
+                                </li>
+                            );
+                        })}
                     </ul>
+
                 </>
             )}
         </div>
