@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './Navbar.css';
 import logo from '../Assets/logo_2.png';
 import cart_icon from '../Assets/cart_icon.png';
@@ -12,6 +12,22 @@ const Navbar = () => {
     const menuRef = useRef();
     const location = useLocation();
     const currentPath = location.pathname;
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        // Fetch categories from the API
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch('http://localhost:4000/categories');
+                const data = await response.json();
+                setCategories(data.categories);
+            } catch (error) {
+                console.error('Failed to fetch categories:', error);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     const dropdown_toggle = (e) => {
         menuRef.current.classList.toggle('nav-menu-visible');
@@ -30,22 +46,12 @@ const Navbar = () => {
                     <Link style={{ textDecoration: 'none' }} to='/'>Home</Link>
                     {currentPath === "/" && <hr />}
                 </li>
-                <li>
-                    <Link style={{ textDecoration: 'none' }} to='/wig'>Wig</Link>
-                    {currentPath === "/wig" && <hr />}
-                </li>
-                <li>
-                    <Link style={{ textDecoration: 'none' }} to='/eyelash'>Eyelash</Link>
-                    {currentPath === "/eyelash" && <hr />}
-                </li>
-                <li>
-                    <Link style={{ textDecoration: 'none' }} to='/nails'>Nails</Link>
-                    {currentPath === "/nails" && <hr />}
-                </li>
-                <li>
-                    <Link style={{ textDecoration: 'none' }} to='/eyebrow'>Eyebrow</Link>
-                    {currentPath === "/eyebrow" && <hr />}
-                </li>
+                {categories.map(category => (
+                    <li key={category._id}>
+                        <Link style={{ textDecoration: 'none' }} to={`/${category.name.toLowerCase()}`}>{category.name}</Link>
+                        {currentPath === `/${category.name.toLowerCase()}` && <hr />}
+                    </li>
+                ))}
             </ul>
             <div className="nav-login-cart">
                 {localStorage.getItem('auth-token') ? (

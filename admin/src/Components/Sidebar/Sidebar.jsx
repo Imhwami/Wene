@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import add_product_icon from '../../assets/Product_Cart.svg'
 import list_product_icon from '../../assets/Product_list_icon.svg'
 import transaction_icon from '../../assets/transaction.svg'
+import category_icon from '../../assets/category.svg'
 
 const Sidebar = () => {
   return (
@@ -24,6 +25,12 @@ const Sidebar = () => {
         <div className="sidebar-item">
             <img src={transaction_icon} alt="" />
             <p>Transaction</p>
+        </div>
+      </Link>
+      <Link to={'/managecategories'} style={{textDecoration:"none"}}>
+        <div className="sidebar-item">
+            <img src={category_icon} alt="" />
+            <p>Categories</p>
         </div>
       </Link>
     </div>

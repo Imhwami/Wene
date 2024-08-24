@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './AddProduct.css';
 import upload_area from "../../assets/upload_area.svg";
 import { toast, ToastContainer } from 'react-toastify';
@@ -6,13 +6,34 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const AddProduct = () => {
     const [image, setImage] = useState(null);
+    const [categories, setCategories] = useState([]);
     const [productDetails, setProductDetails] = useState({
         name: "",
         image: "",
-        category: "wig",
+        category: "",
         new_price: "",
         old_price: ""
     });
+
+    // Fetch categories from the backend API
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch('http://localhost:4000/categories');
+                const data = await response.json();
+                if (data.success) {
+                    setCategories(data.categories);
+                    console.log("data.categories",data.categories)
+                } else {
+                    toast.error("Failed to fetch categories.");
+                }
+            } catch (error) {
+                toast.error("An error occurred while fetching categories.");
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     const imageHandler = (e) => {
         const file = e.target.files[0];
@@ -21,7 +42,7 @@ const AddProduct = () => {
         if (file && file.type !== "image/png") {
             toast.error("Only .png files are allowed.");
             setImage(null);
-            setProductDetails({ ...productDetails, image: "" }); // Clear the image in productDetails
+            setProductDetails({ ...productDetails, image: "" });
             return;
         }
 
@@ -29,13 +50,13 @@ const AddProduct = () => {
         if (file && file.size > 2 * 1024 * 1024) {
             toast.error("File size must be under 2MB.");
             setImage(null);
-            setProductDetails({ ...productDetails, image: "" }); // Clear the image in productDetails
+            setProductDetails({ ...productDetails, image: "" });
             return;
         }
 
         // If no errors, set the image
         setImage(file);
-        setProductDetails({ ...productDetails, image: file }); // Set the image in productDetails
+        setProductDetails({ ...productDetails, image: file });
     };
 
     const changeHandler = (e) => {
@@ -107,10 +128,12 @@ const AddProduct = () => {
             <div className="addproduct-itemfield">
                 <p>Product Category <span className="required">*</span></p>
                 <select value={productDetails.category} onChange={changeHandler} name="category" className='add-product-selector'>
-                    <option value="wig">Wig</option>
-                    <option value="eyelash">Eyelash</option>
-                    <option value="nails">Nail</option>
-                    <option value="eyebrow">Eyebrow</option>
+                    <option value="" disabled>Select a category</option>
+                    {categories.map(category => (
+                        <option key={category._id} value={category.name.toLowerCase()}>
+                            {category.name}
+                        </option>
+                    ))}
                 </select>
             </div>
             <div className="addproduct-itemfield">
@@ -121,8 +144,8 @@ const AddProduct = () => {
                 </label>
                 <input onChange={imageHandler} type="file" name='image' id='file-input' accept=".png" hidden />
             </div>
-            <button onClick={() => { Add_Product() }} className='addproduct-btn'>ADD</button>
-            <ToastContainer /> {/* Toast container to display the toast notifications */}
+            <button onClick={Add_Product} className='addproduct-btn'>ADD</button>
+            <ToastContainer />
         </div>
     )
 }

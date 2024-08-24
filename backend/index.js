@@ -9,6 +9,7 @@ const nodemailer = require("nodemailer");
 const User = require('./models/User.js');
 const Product = require('./models/Product.js');
 const Transaction = require('./models/Transaction');
+const Category = require('./models/Categories.js');
 const router = express.Router();
 
 let dbConnectionError = null;
@@ -485,7 +486,51 @@ app.get('/totalsalesperday', async (req, res) => {
     }
 });
 
-module.exports = router;
+// Routes
+// Get all categories
+app.get('/categories', async (req, res) => {
+    try {
+        const categories = await Category.find({});
+        res.json({ success: true, categories });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Failed to fetch categories.' });
+    }
+});
+
+// Add a new category
+app.post('/addcategory', async (req, res) => {
+    const { name } = req.body;
+
+    if (!name) {
+        return res.status(400).json({ success: false, message: 'Category name cannot be empty.' });
+    }
+
+    try {
+        const newCategory = new Category({ name });
+        await newCategory.save();
+        res.status(201).json({ success: true, message: 'Category added successfully.', category: newCategory });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Failed to add category.' });
+    }
+});
+
+
+// Delete a category
+app.delete('/deletecategory/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const deletedCategory = await Category.findByIdAndDelete(id);
+
+        if (deletedCategory) {
+            res.json({ success: true, message: 'Category deleted successfully.' });
+        } else {
+            res.status(404).json({ success: false, message: 'Category not found.' });
+        }
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Failed to delete category.' });
+    }
+});
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
