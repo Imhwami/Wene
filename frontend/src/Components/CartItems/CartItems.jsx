@@ -76,27 +76,6 @@ const CartItems = () => {
         }
     };
 
-    // const handleProceedToCheckout = async () => {
-    //     try {
-    //         const response = await fetch('http://localhost:4000/clearcart', {
-    //             method: 'POST',
-    //             headers: {
-    //                 Accept: 'application/form-data',
-    //                 'auth-token': `${localStorage.getItem('auth-token')}`,
-    //                 'Content-Type': 'application/json'
-    //             },
-    //         });
-    //         if (!response.ok) {
-    //             throw new Error('Failed to clear cart');
-    //         }
-    //         await response.text();
-    //         clearCart();
-    //         navigate('/successfull');
-    //     } catch (error) {
-    //         console.error('Error clearing cart:', error);
-    //     }
-    // };
-
     const handleProceedToCheckout = async () => {
         try {
             // Convert cartItems object to an array of items
@@ -113,13 +92,14 @@ const CartItems = () => {
             
             console.log("productDetails", productDetails);
     
-            // Map cart items to include product._id instead of productId
+            // Map cart items to include product._id and calculate totalAmount
             const validCartItems = cartItemsArray
                 .map(item => {
                     const product = productDetails.find(p => p.id === item.productId);
                     return product && item.quantity > 0 ? {
                         productId: product._id, // Use product._id
                         quantity: item.quantity,
+                        totalAmount: product.new_price * item.quantity // Calculate totalAmount for each item
                     } : null;
                 })
                 .filter(item => item !== null);
@@ -141,7 +121,6 @@ const CartItems = () => {
                 },
                 body: JSON.stringify({
                     items: validCartItems,
-                    totalAmount: getTotalWithService(),
                 }),
             });
     
@@ -161,7 +140,7 @@ const CartItems = () => {
             console.error('Error creating transaction:', error);
         }
     };    
-         
+
     const getTotalWithService = () => {
         let total = getTotalCartAmount();
         total += serviceCharge;

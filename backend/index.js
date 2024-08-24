@@ -366,14 +366,10 @@ app.listen(port, (error) => {
 // Route to create a new transaction
 app.post('/createtransaction', fetchUser, async (req, res) => {
     try {
-        const { items, totalAmount } = req.body;
+        const { items } = req.body;
 
         if (!Array.isArray(items) || items.length === 0) {
             return res.status(400).json({ success: false, message: 'Items must be a non-empty array' });
-        }
-
-        if (!totalAmount) {
-            return res.status(400).json({ success: false, message: 'Missing totalAmount' });
         }
 
         if (!req.user) {
@@ -384,7 +380,7 @@ app.post('/createtransaction', fetchUser, async (req, res) => {
             userId: req.user.id,
             productId: item.productId,
             quantity: item.quantity,
-            totalPrice: totalAmount, 
+            totalPrice: item.totalAmount, 
             date: new Date(),
         }));
 
@@ -396,6 +392,7 @@ app.post('/createtransaction', fetchUser, async (req, res) => {
         res.status(500).json({ success: false, message: 'Server error' });
     }
 });
+
 
 // Route to get all transactions (for admin)
 app.get('/alltransactions', async (req, res) => {
@@ -452,6 +449,43 @@ app.get('/totalsales', async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
+
+// Route to get total sales per day
+app.get('/totalsalesperday', async (req, res) => {
+    try {
+        const totalSalesPerDay = await Transaction.aggregate([
+            {
+                $addFields: {
+                    dateWithTimezone: {
+                        $dateAdd: {
+                            startDate: "$date",
+                            unit: "hour",
+                            amount: 7 // UTC+7
+                        }
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: {
+                        $dateToString: { format: "%Y-%m-%d", date: "$dateWithTimezone" }
+                    },
+                    totalRevenue: { $sum: "$totalPrice" },
+                    totalQuantity: { $sum: "$quantity" }
+                }
+            },
+            {
+                $sort: { _id: 1 }
+            }
+        ]);
+
+        res.json({ totalSalesPerDay });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch total sales per day' });
+    }
+});
+
+module.exports = router;
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
