@@ -34,7 +34,7 @@ const ListProduct = () => {
     <div className='list-product'>
       <h1>All Products List</h1>
       <div className="listproduct-format-main">
-        <p style={{fontSize:'18px', fontWeight:'500'}}>Products</p>
+        <p style={{fontSize:'18px', fontWeight:'500', marginRight:'-30px'}}>Products</p>
         <p style={{fontSize:'18px', fontWeight:'500'}}>Title</p>
         <p style={{fontSize:'18px', fontWeight:'500'}}>Old Price</p>
         <p style={{fontSize:'18px', fontWeight:'500'}}>New Price</p>
@@ -47,7 +47,7 @@ const ListProduct = () => {
           return <>
             <div key={index} className="listproduct-format-main listproduct-format">
               <img src={product.image} alt="" className="listproduct-product-icon" />
-              <p>{product.name}</p>
+              <p className="listproduct-title">{product.name}</p>
               <p>Rp {product.old_price}</p>
               <p>Rp {product.new_price}</p>
               <p>{product.category}</p>
